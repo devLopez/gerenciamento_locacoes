@@ -1,0 +1,4 @@
+# Ignora os arquivos do Zend Studio
+.buildpath
+.project
+.settings/*
