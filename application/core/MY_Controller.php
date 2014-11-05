@@ -64,7 +64,7 @@
          *              controlar os recursos que necessitam ou não de que o
          *              usuário esteja logado no sistema
          */
-        public function __construct()
+        public function __construct($requer_autenticacao = TRUE)
         {
             parent::__construct();
             
@@ -117,7 +117,7 @@
             {
                 if(!isset($_SESSION['user']))
                 {
-                    redirect(base_url().'login');
+                    redirect(app_baseurl().'login');
                 }
             }
         }
