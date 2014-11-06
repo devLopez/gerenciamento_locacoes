@@ -29,14 +29,8 @@ $(document).ajaxComplete(function() {
 });
 
 $.ajaxSetup({
-    error: function(xhr) {
-        if (xhr.status === 0) {
-            msg_erro('Não há conexão. verifique sua conexão');
-        } else if (xhr.status == 404) {
-            msg_erro('Error 404 (Not Found)');
-        } else if (xhr.status == 500) {
-            msg_erro('Error 500 (Internal error server).');
-        }
+    error: function() {
+        msg_erro('Ocorreu um erro. Tente novamente');
     }
 });
 //******************************************************************************

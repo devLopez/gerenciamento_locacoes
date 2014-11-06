@@ -138,3 +138,27 @@ function logout(url)
     location.href = url;
 }
 //******************************************************************************
+
+/**
+ * post()
+ *
+ * Função desenvolvida para enviar requisições via $.ajax() do jQuery
+ * 
+ * @author	:	Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+ * @param	:	{string} url 			Contém a url da requisição
+ * @param	:	{string} dados			Contém os dados que serão enviados no requisição
+ * @param	:	{string} tipoRequisicao	Contém o tipo de requisição (html ou json)
+ */
+function post(url, dados, tipoRequisicao)
+{
+	$.ajax({
+		url: url,
+		type: 'POST',
+		data: dados,
+		dataType: tipoRequisicao,
+		success: function(e)
+		{
+			return e;
+		}
+	});
+}

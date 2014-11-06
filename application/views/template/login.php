@@ -26,10 +26,18 @@
         <!--*****************************************************************-->
 
         <!-- Conteúdo -->
-        <div id="content" class="container">
-            <?php $this->load->view('paginas/'.$view);?>
+        <div id="" role="main">
+            <div id="content" class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-xs hidden-sm"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                        <br><br>
+                        <?php $this->load->view('paginas/'.$view);?>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-xs hidden-sm"></div>
+                </div>
+            </div>
         </div>
-
         <!--================================================== -->
 
         <!-- jQuery e jQuery UI -->
