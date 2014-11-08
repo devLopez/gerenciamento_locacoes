@@ -1,5 +1,5 @@
 <div class="well no-padding">
-    <form id="login" class="smart-form client-form">
+    <form class="smart-form client-form" id="login" type="POST">
         <header class="text-center">
             Sistema de Gerenciamento de Locações &nbsp; Login
         </header>
@@ -8,7 +8,7 @@
                 <label class="label">Nome de usuário</label>
                 <label class="input">
                     <i class="icon-append fa fa-user"></i>
-                    <input type="text" id="usuario" name="usuario" required autofocus>
+                    <input type="text" id="usuario" required autofocus>
                     <b class="tooltip tooltip-top-right">
                         <i class="fa fa-user txt-color-teal"></i> 
                         Entre com seu nome de usuário
@@ -19,7 +19,7 @@
                 <label class="label">Senha</label>
                 <label class="input">
                     <i class="icon-append fa fa-lock"></i>
-                    <input type="password" id="senha" name="senha" maxlength="20" required />
+                    <input type="password" id="senha" required />
                     <b class="tooltip tooltip-top-right">
                         <i class="fa fa-lock txt-color-teal"></i>
                         Entre com a sua Senha
@@ -37,3 +37,28 @@
         </footer>
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+    	
+        /** Realiza a busca das informações de login **/
+    	$('#login').submit(function(e){
+        	e.preventDefault();
+
+        	//Recebe os dados para enviar para o processamento
+        	dados   = 'usuario='+$('#usuario').val()+'&senha='+$('#senha').val();
+            tipo    = 'html';
+            
+            $.ajax({
+                url: '<?php echo app_baseurl().'login/fazer_login'?>',
+                type: 'POST',
+                data: dados,
+                dataType: 'html',
+                success: function(e)
+                {
+                    console.log(e);
+                }
+            });
+        	
+        });
+    });
+</script>

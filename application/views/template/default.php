@@ -19,8 +19,8 @@
         <link rel="stylesheet" type="text/css" media="screen" href="./css/pentaurea.css">
 
         <!-- #FAVICONS -->
-        <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="./img/favicon/icon.png" type="image/png">
+        <link rel="icon" href="./img/favicon/icon.png" type="image/png">
 
         <!-- #GOOGLE FONT -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
@@ -43,7 +43,7 @@
 
         <!-- #PLUGINS -->
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-        <script src="js/libs/jquery-2.0.2.min.js"></script>
+        <script src="js/libs/jquery.js"></script>
         <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
 
         <!-- IMPORTANT: APP CONFIG -->

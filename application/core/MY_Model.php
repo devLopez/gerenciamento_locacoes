@@ -68,14 +68,14 @@
             //Realiza a construço da classe
             parent::_construct();
             
-            //Realiza a seleção do Bando de dados
-            if(ENVIRONMENT == 'production' || ENVIRONMENT == 'testing')
+            //Realiza a seleção do Banco de dados
+            if(ENVIRONMENT == 'development')
             {
-                $this->BD = $this->load->database('production', TRUE);
+                $this->BD = $this->load->database('default', TRUE);
             }
             else
             {
-                $this->BD = $this->load->database('default', TRUE);
+                $this->BD = $this->load->database('production', TRUE);
             }
         }
         //**********************************************************************

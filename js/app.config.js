@@ -41,42 +41,42 @@
  * Impacts the responce rate of some of the responsive elements (lower 
  * value affects CPU but improves speed)
  */
-	var throttle_delay = 350,
+	var throttle_delay = 350;
 /*
  * The rate at which the menu expands revealing child elements on click
  */
-	menu_speed = 235,	
+	menu_speed = 235;
 /*
  * Turn on JarvisWidget functionality
  * dependency: js/jarviswidget/jarvis.widget.min.js
  */
-	enableJarvisWidgets = true,
+	enableJarvisWidgets = true;
 /*
  * Warning: Enabling mobile widgets could potentially crash your webApp 
  * if you have too many widgets running at once 
  * (must have enableJarvisWidgets = true)
  */
-	enableMobileWidgets = false,	
+	enableMobileWidgets = false;
 /*
  * Turn on fast click for mobile devices
  * Enable this to activate fastclick plugin
  * dependency: js/plugin/fastclick/fastclick.js 
  */
-	fastClick = false,
+	fastClick = false;
 /*
  * These elements are ignored during DOM object deletion for ajax version 
  * It will delete all objects during page load with these exceptions:
  */
-	ignore_key_elms = ["#header, #left-panel, #main, div.page-footer, #shortcut, #divSmallBoxes, #divMiniIcons, #divbigBoxes, #voiceModal, script"],
+	ignore_key_elms = ["#header, #left-panel, #main, div.page-footer, #shortcut, #divSmallBoxes, #divMiniIcons, #divbigBoxes, #voiceModal, script"];
 /*
  * VOICE COMMAND CONFIG
  * dependency: js/speech/voicecommand.js
  */
-	voice_command = true,
+	voice_command = true;
 /*
  * Turns on speech as soon as the page is loaded
  */	
-	voice_command_auto = false,
+	voice_command_auto = false;
 /*
  * 	Sets the language to the default 'en-US'. (supports over 50 languages 
  * 	by google)

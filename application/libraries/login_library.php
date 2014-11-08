@@ -11,17 +11,17 @@
      */
 
     /**
-     * Login
+     * Login_library.php
      * 
      * Classe desenvolvida para realização do login
      * 
-     * @package     Controllers
+     * @package     Libraries
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
      * @version     v1.0.0
      * @since       06/11/2014
      */
-    class Login extends MY_Controller
+    class Login_library extends CI_Controller
     {
         /**
          * __construct()
@@ -33,47 +33,49 @@
          */
         public function __construct()
         {
-            parent::__construct(FALSE);
+            parent::__construct();
         }
         //**********************************************************************
         
         /**
-         * index()
+         * logar()
          * 
-         * Função padrão da classe, responsável pela view inicial
-         * 
-         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-         * @access      Public
-         */
-        function index()
-        {
-            $this->view     = 'login';
-            $this->titulo   = '.::SGL - Login::.';
-            $this->template = 'template/login';
-            
-            $this->LoadView();
-        }
-        //**********************************************************************
-        
-        /**
-         * fazer_login()
-         * 
-         * Função desenvolvida para fazer login no sistema
+         * Função desenvolvida para realização do login
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
+         * @param       array $dados Contém os dados de Login e senha
          */
-        function fazer_login()
+        function logar($dados)
         {
-            $dados['login']  = $this->input->post('usuario');
-            $dados['senha']  = $this->input->post('senha');
+            $this->load->model('login_model', 'login');
             
-            // Realiza o Load da library necessária para o login
-            $this->load->library('login_library');
+            $this->login->usuarios_login($dados);
             
-            $this->login_library->logar($dados);
+            echo "<pre>";
+            print_r('algo por aqui');
+            exit();
+            
+            if($usuario)
+            {
+                foreach ($usuario as $row)
+                {
+                    $senha_salva = $row->senha;
+                }
+                
+                if(password_verify($dados, $senha_salva))
+                {
+                    echo "<pre>";
+                    print_r('algo por aqui');
+                }
+            }
+            else
+            {
+                echo "<pre>";
+                print_r('algo por aqui');
+            }
         }
         //**********************************************************************
     }
-    /** End of File login.php **/
-    /** Location ./application/controllers/login.php **/
+    /** End of File login_library.php **/
+    /** Location ./application/libraries/login_library.php **/
