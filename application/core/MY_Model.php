@@ -66,7 +66,7 @@
         public function __construct()
         {
             //Realiza a construço da classe
-            parent::_construct();
+            parent::__construct();
             
             //Realiza a seleção do Banco de dados
             if(ENVIRONMENT == 'development')

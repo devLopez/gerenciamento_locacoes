@@ -36,7 +36,7 @@
             parent::__construct();
             
             // Indica a tabela principal que será trabalhada neste model
-            //$this->_tabela  = 'usuarios';
+            $this->_tabela  = 'usuarios';
         }
         //**********************************************************************
         
@@ -50,8 +50,8 @@
          */
         function usuarios_login($dados)
         {
-            //$this->BD->where('usuario', $dados['usuario']);
-            //return $this->BD->get($this->_tabela)->result();
+            $this->BD->where('usuario', $dados['usuario']);
+            return $this->BD->get($this->_tabela)->result();
         }
         //**********************************************************************
     }

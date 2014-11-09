@@ -52,10 +52,6 @@
             
             $this->login->usuarios_login($dados);
             
-            echo "<pre>";
-            print_r('algo por aqui');
-            exit();
-            
             if($usuario)
             {
                 foreach ($usuario as $row)
@@ -66,7 +62,7 @@
                 if(password_verify($dados, $senha_salva))
                 {
                     echo "<pre>";
-                    print_r('algo por aqui');
+                    print_r('Senha Correta');
                 }
             }
             else
