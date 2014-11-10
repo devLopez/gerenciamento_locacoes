@@ -5,6 +5,9 @@
  * Created on : 08/08/2014, 16:12:45
  * Author     : Matheus Lopes Santos
  */
-.click {
-    cursor: pointer;
+.click {cursor: pointer;}
+
+/** Estilo utilizado para colocar o datepicker na frente da janela mudal **/
+.ui-datepicker-div {
+    z-index:  1051 !important;
 }
