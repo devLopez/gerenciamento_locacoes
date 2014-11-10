@@ -46,19 +46,26 @@
 
         	//Recebe os dados para enviar para o processamento
         	dados   = 'usuario='+$('#usuario').val()+'&senha='+$('#senha').val();
-            tipo    = 'html';
             
             $.ajax({
                 url: '<?php echo app_baseurl().'login/fazer_login'?>',
                 type: 'POST',
                 data: dados,
-                dataType: 'html',
+                dataType: 'json',
                 success: function(e)
                 {
-                    console.log(e);
+                    if(e.sucesso == 1 && e.erro == '')
+                    {
+                        location.href = '<?php echo app_baseurl().'inicio'?>';
+                    }
+                    
+                    if(e.erro)
+                    {
+                        msg_erro(e.erro);
+                        return false;
+                    }
                 }
             });
-        	
         });
     });
 </script>

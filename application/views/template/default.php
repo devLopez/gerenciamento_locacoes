@@ -2,7 +2,7 @@
 <html lang="pt-br">	
     <head>
         <meta charset="utf-8">
-        <title> Sistema de Cobrança on-Line</title>
+        <title>.:: SGL Início ::.</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -32,7 +32,7 @@
         <div class="page-footer">
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
-                    <span class="txt-color-white">Sistema de Cobrança On-Line © 2014</span>
+                    <span class="txt-color-white">Sistema de Gerência de Locações © 2014</span>
                 </div>
             </div>
             <!-- end row -->

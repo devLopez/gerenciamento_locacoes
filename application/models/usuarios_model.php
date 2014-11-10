@@ -50,8 +50,9 @@
          */
         function usuarios_login($dados)
         {
-            $this->BD->where('usuario', $dados['usuario']);
-            return $this->BD->get($this->_tabela)->result();
+            $this->BD->where('usuario', $dados['login']);
+            
+            return parent::get();
         }
         //**********************************************************************
     }

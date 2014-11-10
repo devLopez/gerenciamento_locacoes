@@ -71,7 +71,25 @@
             // Realiza o Load da library necessária para o login
             $this->load->library('login_library');
             
-            $this->login_library->logar($dados);
+            echo json_encode($this->login_library->logar($dados));
+        }
+        //**********************************************************************
+        
+        /**
+         * logoff
+         * 
+         * Função desenvolvida para realizar o logoff do sistema
+         * 
+         * @author      Matheus Lopes Santos
+         * @access      Public
+         */
+        function logoff()
+        {
+            setcookie('nome_usuario');
+            setcookie('user_pass');
+            setcookie('login');
+            
+            redirect(app_baseurl().'login');
         }
         //**********************************************************************
     }

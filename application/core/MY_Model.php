@@ -79,6 +79,23 @@
             }
         }
         //**********************************************************************
+        
+        /**
+         * get()
+         * 
+         * Função desenvolvida para realizar buscas no banco de dados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @return      mixed Retorna registros do banco de dados, geralmente
+         *              array
+         */
+        public function get()
+        {
+            return $this->BD->get($this->_tabela)->result();
+        }
+        //**********************************************************************
+        
     }
     /** End of File MY_Model.php **/
     /** Location ./application/core/MY_Model.php **/

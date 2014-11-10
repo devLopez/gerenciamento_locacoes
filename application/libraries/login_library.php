@@ -45,31 +45,43 @@
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
          * @param       array $dados Contém os dados de Login e senha
+         * @return      mixed Retorna TRUE se o login for feito e mensagens de
+         *              erro no caso do login incorreto
          */
         function logar($dados)
         {
-            $this->load->model('login_model', 'login');
+            $this->load->model('usuarios_model', 'usuarios');
             
-            $this->login->usuarios_login($dados);
+            $usuarios = $this->usuarios->usuarios_login($dados);
             
-            if($usuario)
+            if($usuarios)
             {
-                foreach ($usuario as $row)
+                foreach ($usuarios as $row)
                 {
-                    $senha_salva = $row->senha;
+                    $senha_salva    = $row->senha;
+                    $nome_usuario   = $row->nome_completo;
                 }
                 
-                if(password_verify($dados, $senha_salva))
+                if(password_verify($dados['senha'], $senha_salva))
                 {
-                    echo "<pre>";
-                    print_r('Senha Correta');
+                    setcookie('nome_usuario', $nome_usuario);
+                    setcookie('user_pass', $senha_salva);
+                    setcookie('login', TRUE, time()+3600);
+                    
+                    $resposta['sucesso']    = TRUE;
+                    $resposta['erro']       = '';
+                }
+                else
+                {
+                    $resposta['erro'] = 'Senha Incorreta';
                 }
             }
             else
             {
-                echo "<pre>";
-                print_r('algo por aqui');
+                $resposta['erro'] = 'Não foi encontrado usuário com este nome';
             }
+            
+            return $resposta;
         }
         //**********************************************************************
     }

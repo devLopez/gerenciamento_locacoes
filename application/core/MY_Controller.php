@@ -115,7 +115,7 @@
         {
             if($requer_autenticacao)
             {
-                if(!isset($_SESSION['user']))
+                if(!isset($_COOKIE['login']) || !$_COOKIE['login'])
                 {
                     redirect(app_baseurl().'login');
                 }
