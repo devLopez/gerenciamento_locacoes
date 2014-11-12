@@ -38,7 +38,7 @@
                             <td><?php echo date('d/m/Y', strtotime($row->data))?></td>
                             <td><?php echo $row->espaco_necessario?></td>
                             <td align="center">
-                                <a href="#" rel="tooltip" title="Excluir">
+                                <a class="excluir" href="#" rel="tooltip" title="Excluir" data-acao="excluir" data-id="<?php echo $row->id ?>">
                                     <i class="fa fa-times"></i>
                                 </a>
                                 <a href="#" rel="tooltip" title="Editar">
@@ -58,4 +58,35 @@
 <script type="text/javascript">
     //Recebe o valor do offset que será usado na paginação
     offset = '<?php echo $verificador?>';
+
+    // Realiza a exclusão de um registro
+    $('.excluir').click(function(e){
+        e.preventDefault();
+
+        var acao    = $(this).data('acao');
+        var id      = $(this).data('id');
+
+        if(confirm('Deseja realmente excluir?'))
+        {
+            $.ajax({
+               url: '<?php echo app_baseurl().'locacao_externa/operacoes'?>',
+               type: 'POST',
+               data: {acao: acao, id: id},
+               dataType: 'html',
+               success: function(e)
+               {
+                   if(e == 1)
+                   {
+                       msg_sucesso('Excluido com sucesso');
+                       buscar();
+                   }
+                   else
+                   {
+                       msg_erro('Não foi possível realizar a ação');
+                       return false;
+                   }
+               } 
+            });
+        }
+    });
 </script>

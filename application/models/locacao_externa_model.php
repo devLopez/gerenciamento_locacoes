@@ -54,7 +54,20 @@
         function salvar($dados)
         {
             $this->_data = $dados;
-            return parent::salvar();
+            
+            $resposta = parent::salvar();
+            
+            if($resposta)
+            {
+                // Cria um novo log do sistema
+                $logs = array(
+                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'operacao'  => 'inserção (locação externa)-> '.$dados['instituicao'].' - '.$dados['responsavel'].' - '.date('d/m/Y', strtotime($dados['data'])).''
+                );
+                parent::salvar_log($logs);
+                
+                return TRUE;
+            }
         }
         //**********************************************************************
         
@@ -72,6 +85,7 @@
         function buscar($limite, $offset)
         {
             $this->BD->limit($limite, $offset);
+            $this->BD->where('status', 1);
             $this->BD->order_by('data');
             
             return parent::get();
@@ -92,6 +106,37 @@
             return parent::contar();
         }
         //**********************************************************************
+        
+        /**
+         * apagar()
+         * 
+         * Função desenvolvida para apagar uma locação
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @param       int $id Contém o ID do registro a ser atualizado
+         * @return      bool Retorna TRUE se atualizar e FALSE se não atualizar
+         */
+        function apagar($id)
+        {
+            $this->_data = array('status' => 0);
+            
+            $this->BD->where('id', $id);
+            
+            $resposta = parent::update();
+            
+            if($resposta)
+            {
+                // Cria um novo log do sistema
+                $logs = array(
+                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'operacao'  => 'exclusão (locação externa)-> ID REGISTRO -> '.$id.''
+                );
+                parent::salvar_log($logs);
+                
+                return TRUE;
+            }
+        }
     }
     /** End of File locacao_externa_model.php **/
     /** Location ./application/models/locacao_externa_model.php **/

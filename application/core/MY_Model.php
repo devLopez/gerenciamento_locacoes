@@ -125,6 +125,35 @@
             return $this->BD->count_all_results($this->_tabela);
         }
         //**********************************************************************
+        
+        /**
+         * salvar_log()
+         * 
+         * Função desenvolvida para criação de logs do sistema
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      public
+         */
+        function salvar_log($dados)
+        {
+            $this->BD->insert('logs', $dados);
+        }
+        //**********************************************************************
+        
+        /**
+         * update()
+         * 
+         * Função desenvolvida para realizar um update em um determinado record
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @return      bool Retorna TRUE se atualizar e FALSE se não atualizar
+         */
+        function update()
+        {
+            return $this->BD->update($this->_tabela, $this->_data);
+        }
+        //**********************************************************************
     }
     /** End of File MY_Model.php **/
     /** Location ./application/core/MY_Model.php **/

@@ -114,6 +114,30 @@
             $this->load->view('paginas/ajax/buscas/locacao_externa', $this->dados);
         }
         //**********************************************************************
+        
+        /**
+         * operacoes()
+         * 
+         * Função desenvolvida para alterar ou excluir um registro
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         */
+        function operacoes()
+        {
+            $acao   = $this->input->post('acao');
+            $id     = $this->input->post('id');
+            
+            switch ($acao)
+            {
+                case 'excluir':
+                    echo $this->locacao_externa->apagar($id);
+                    break;
+                default:
+                    echo 'Nenhuma ação foi passada';
+            }
+        }
+        //**********************************************************************
     }
     /** End of File locacao_externa.php **/
     /** Location ./application/controllers/locacao_externa.php **/
