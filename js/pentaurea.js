@@ -99,6 +99,22 @@ function msg_erro(msg)
 //******************************************************************************
 
 /**
+ * limpar_campos()
+ * 
+ * Função desenvolvida para limpar campos de formulários
+ * 
+ * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+ * @param       {string} form O nome do formulário que se deseja limpar
+ */
+function limpar_campos(form)
+{
+    form.find("input, textarea").val("");
+    form.find('radio, checkbox').prop('checked', false);
+    form.find('select').prop('selected', false);
+}
+//******************************************************************************
+
+/**
  * logoff()
  * 
  * Função desenvolvida para realizar o login

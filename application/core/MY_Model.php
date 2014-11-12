@@ -20,8 +20,8 @@
 	 * @package    Core
 	 * @author     Matheus Lopes Santos <fale_com_lopez@hotmail.com>
 	 * @access     Public
-	 * @version    v1.0.0
-	 * @since      05/11/2014
+	 * @version    v1.3.0
+	 * @since      12/11/2014
      */
     class MY_Model extends CI_Model
     {
@@ -96,6 +96,35 @@
         }
         //**********************************************************************
         
+        /**
+         * salvar()
+         * 
+         * Função desenvolvida para salvar um registro no banco de dados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @return      bool Retorna TRUE se salvar e FALSE se não salvar
+         */
+        public function salvar()
+        {
+            return $this->BD->insert($this->_tabela, $this->_data);
+        }
+        //**********************************************************************
+        
+        /**
+         * contar()
+         * 
+         * Realiza a contagem dos registros de uma tabela
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @return      int Retorna a qtde de registros salvos
+         */
+        function contar()
+        {
+            return $this->BD->count_all_results($this->_tabela);
+        }
+        //**********************************************************************
     }
     /** End of File MY_Model.php **/
     /** Location ./application/core/MY_Model.php **/

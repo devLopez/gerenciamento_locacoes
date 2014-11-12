@@ -26,6 +26,10 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
     </head>
     <body class="smart-style-2 menu-on-top">
+        <!-- Exibe o progresso das requisições ajax -->
+        <div class="carregando"></div>
+        <div class="carregando-backdrop"></div>
+        
         <?php $this->load->view('paginas/' . $view); ?>
         
         <!-- #PAGE FOOTER -->
@@ -98,7 +102,20 @@
         
         <script type="text/javascript">
             loadScript('./js/pentaurea.js');
+
+            /** Inicialização dos tooltips e popovers **/
+            $("[rel=tooltip]").tooltip();
             
+            $('body').tooltip({
+                selector: '[rel="tooltip"]'
+            });
+            
+            $('body').popover({
+                selector: '[rel="popover"]',
+                placement: 'top',
+                trigger: 'hover'
+            });
+            //******************************************************************
             
             /**
              * verifica_conectividade()

@@ -95,7 +95,7 @@
 
                         <div class="row">
                             <section class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <label class="label"><strong>Aviso:</strong></label>
+                                <label class="label"><strong>Observações:</strong></label>
                                 <label class="textarea"> 
                                     <textarea name="espaco_necessario" id="espaco_necessario" maxlength="150"></textarea>
                                 </label>
@@ -124,10 +124,10 @@
     loadScript('./js/libs/jquery.ui.datepicker-pt-BR.js');
     
     // Atribuição do valor da variável que será utilizada na Paginação
-    offset = 0;
+    var offset = 0;
 
     // Chama a função que realiza a busca das locações cadastradas
-    //buscar();
+    buscar();
 
     // Inicializa o calendário
     $('#data').datepicker({
@@ -136,4 +136,54 @@
         nextText: '<i class="fa fa-chevron-right"></i>',
         minDate: 0
     });
+
+    // Envia os dados do formulario via ajax
+    $('#salvar_aviso').submit(function(e){
+        e.preventDefault();
+
+        dados = $('#salvar_aviso').serialize();
+
+        $.ajax({
+            url: '<?php echo app_baseurl().'locacao_externa/salvar_locacao'?>',
+            type: 'POST',
+            data: dados,
+            dataType: 'html',
+            success: function(e)
+            {
+                if(e == 1)
+                {
+                    msg_sucesso('Locação salva');
+                    limpar_campos($('#salvar_aviso'));
+                    $('#cad_aluguel').modal('hide');
+                    buscar();
+                }
+                else
+                {
+                    msg_erro('Não foi possível salvar os dados. Tente novamente');
+                }
+            }
+        }); 
+    });
+
+    // Evita o evento padrão para que a paginação seja feita com ajax
+    $(document).on("click", ".pagination li a", function(e) {
+        e.preventDefault();
+        
+        href = $(this).attr("href");
+        loadAjax(href, $('#locacoes_cadastradas'));
+    });
+
+    /**
+     * buscar()
+     *
+     * Função desenvolvida para buscar os registros de locações
+     * 
+     * @author  : Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+     * @access  : Public
+     */
+    function buscar()
+    {
+        url = '<?php echo app_baseurl().'locacao_externa/buscar/'?>' + offset;
+        loadAjax(url, $('#locacoes_cadastradas'));
+    }
 </script>

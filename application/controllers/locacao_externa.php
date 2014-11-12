@@ -18,8 +18,8 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       10/11/2014
+     * @version     v1.2.0
+     * @since       12/11/2014
      */
     class Locacao_externa extends MY_Controller
     {
@@ -34,6 +34,9 @@
         public function __construct()
         {
             parent::__construct(TRUE);
+            
+            // Carrega o model necessário para as transações com o BD
+            $this->load->model('locacao_externa_model', 'locacao_externa');
         }
         //**********************************************************************
         
@@ -50,6 +53,67 @@
         {
             $this->load->view('paginas/ajax/locacoes_externas');
         }
+        //**********************************************************************
+        
+        /**
+         * salvar_locacao()
+         * 
+         * Função desenvolvida para salvar uma locação no banco de dados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @return      bool Retorna TRUE se salvar e FALSE se não salvar
+         */
+        function salvar_locacao()
+        {
+            $locacao = array(
+                'instituicao'       => $this->input->post('instituicao'),
+                'responsavel'       => $this->input->post('responsavel'),
+                'telefone'          => $this->input->post('telefone'),
+                'email'             => $this->input->post('email'),
+                'data'              => $this->input->post('data'),
+                'espaco_necessario' => $this->input->post('espaco_necessario')
+            );
+            
+            echo $this->locacao_externa->salvar($locacao);
+        }
+        //**********************************************************************
+        
+        /**
+         * buscar()
+         * 
+         * Função desenvolvida para buscar os aluguéis cadastrados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @param       int $offset Define o offset da consulta sql
+         */
+        function buscar($offset = 0)
+        {
+            //Define o limite da busca sql
+            $limite = 10;
+            
+            //Recebe os dados do Banco de dados
+            $this->dados['locacoes']    = $this->locacao_externa->buscar($limite, $offset);
+            if (!$this->dados['locacoes'] && $offset > 0) {
+                $offset = $offset - $limite;
+                $this->dados['locacoes']    = $this->locacao_externa->buscar($limite, $offset);
+            }
+            
+            //Configurações da paginação
+            $config['base_url']     = app_baseurl().'locacao_externa/buscar';
+            $config['per_page']     = $limite;
+            $config['total_rows']   = $this->locacao_externa->contar();
+            
+            //Inicializa a paginação e cria os links
+            $this->pagination->initialize($config);
+            $this->dados['paginacao']   = $this->pagination->create_links();
+            $this->dados['verificador'] = $offset;
+            
+            //Chama a view
+            $this->load->view('paginas/ajax/buscas/locacao_externa', $this->dados);
+        }
+        //**********************************************************************
     }
     /** End of File locacao_externa.php **/
     /** Location ./application/controllers/locacao_externa.php **/
