@@ -170,7 +170,7 @@
         e.preventDefault();
         
         href = $(this).attr("href");
-        loadAjax(href, $('#locacoes_cadastradas'));
+        get_data(href, $('#locacoes_cadastradas'));
     });
 
     /**
@@ -184,6 +184,6 @@
     function buscar()
     {
         url = '<?php echo app_baseurl().'locacao_externa/buscar/'?>' + offset;
-        loadAjax(url, $('#locacoes_cadastradas'));
+        get_data(url, $('#locacoes_cadastradas'));
     }
 </script>

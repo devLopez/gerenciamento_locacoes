@@ -59,6 +59,32 @@ function loadAjax(url, container)
 //******************************************************************************
 
 /**
+ * get_data()
+ * 
+ * Função desenvolvida para buscar dados ou views, como por exemplo, buscas em
+ * bancos de dados, para que não interfira na função loadAjax()
+ * 
+ * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+ * @param       {string} url Contém a URL que será carregada
+ * @param       {string} container Contém o elemento que receberá a resposta ajax
+ */
+function get_data(url, container)
+{
+	if(container == undefined)
+    {
+        container = $("#content:not(.container)");
+    }
+
+    $.get(url, function(e) {
+        container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
+        drawBreadCrumb();
+    }).fail(function() {
+        container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
+    });
+}
+//******************************************************************************
+
+/**
  * msg_sucesso()
  * 
  * Função desenvolvida para exibir mensagens de sucesso no sistema
