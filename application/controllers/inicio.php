@@ -19,7 +19,7 @@
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
      * @version     v1.0.0
-     * @since       10/11/2014
+     * @since       11/11/2014
      */
     class Inicio extends MY_Controller
     {

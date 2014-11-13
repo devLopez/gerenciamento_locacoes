@@ -91,6 +91,34 @@
             
             redirect(app_baseurl().'login');
         }
+        //**********************************************************************       
+        
+        /**
+         * verifica_senha()
+         * 
+         * Verifica a senha do usuário, caso a seção seja morta, para que a mesma
+         * seja renovada
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @return      bool Retorna TRUE se a senha for correta e FALSE se o
+         *              usuário errar a senha
+         */
+        function verifica_senha()
+        {
+            $senha          = $this->input->post('senha');
+            $senha_salva    = $_COOKIE['user_pass'];
+            
+            if(password_verify($senha, $senha_salva))
+            {
+                echo TRUE;
+                setcookie('login', TRUE, time()+3600);
+            }
+            else
+            {
+                echo FALSE;
+            }
+        }
         //**********************************************************************
     }
     /** End of File login.php **/

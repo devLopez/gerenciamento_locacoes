@@ -1,6 +1,6 @@
 /**
  * PENTAUREA.CSS
- * 
+ *
  * Estilos personalizados para o sistema
  * Created on : 08/08/2014, 16:12:45
  * Author     : Matheus Lopes Santos
@@ -44,4 +44,14 @@
 	background-color: #000;
 	opacity: 0.5;
 	z-index: 10000;
+}
+
+#tela-bloqueio {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #ccc;
+	z-index: 9998;
 }

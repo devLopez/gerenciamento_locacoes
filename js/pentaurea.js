@@ -4,6 +4,10 @@
  * Scripts desenvolvidos para auxiliar em diversas operações no sistema
  */
 
+/** Define o endereço global de uma url requisitada **/
+var url_global 			= '';
+var container_global	= '';
+
 /**
  * Função que irá previnir que o menu use o elemento padrão, para que as urls 
  * do menu possam ser carregadas via ajax
@@ -35,26 +39,32 @@ loadAjax(inicio);
  */
 function loadAjax(url, container)
 {
-    /** Remove qualquer classe ativa no menu **/
-    $("nav li.active").removeClass("active");
-    
-    /**
-     * Procura no menu um elemento quee contenha a url que foi passada para setar
-     * o elemento como active, podendo assim, desenhar o breadCrumb
-     */
-    $('nav li:has(a[href="'+url+'"])').addClass("active");
-    
-    if(container == undefined)
-    {
-        container = $("#content:not(.container)");
-    }
+	url_global 			= url;
+	container_global	= container;
+	
+	if (logado() == true)
+	{
+		/** Remove qualquer classe ativa no menu **/
+	    $("nav li.active").removeClass("active");
+	    
+	    /**
+	     * Procura no menu um elemento quee contenha a url que foi passada para setar
+	     * o elemento como active, podendo assim, desenhar o breadCrumb
+	     */
+	    $('nav li:has(a[href="'+url+'"])').addClass("active");
+	    
+	    if(container == undefined)
+	    {
+	        container = $("#content:not(.container)");
+	    }
 
-    $.get(url, function(e) {
-        container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
-        drawBreadCrumb();
-    }).fail(function() {
-        container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
-    });
+	    $.get(url, function(e) {
+	        container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
+	        drawBreadCrumb();
+	    }).fail(function() {
+	        container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
+	    });
+	}
 }
 //******************************************************************************
 
@@ -70,17 +80,18 @@ function loadAjax(url, container)
  */
 function get_data(url, container)
 {
+	
 	if(container == undefined)
-    {
-        container = $("#content:not(.container)");
-    }
-
-    $.get(url, function(e) {
-        container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
-        drawBreadCrumb();
-    }).fail(function() {
-        container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
-    });
+	{
+		container = $("#content:not(.container)");
+	}
+	
+	$.get(url, function(e) {
+		container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
+		drawBreadCrumb();
+	}).fail(function() {
+		container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
+	});
 }
 //******************************************************************************
 
@@ -178,5 +189,45 @@ function logoff(url)
 function logout(url)
 {
     location.href = url;
+}
+//******************************************************************************
+
+/**
+ * logado() 
+ *
+ * Função desenvolvida para verificar se o usuário está logado ou não
+ *
+ * @author	:	Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+ * @param	:	{string} url Contém a url que foi solicitada 
+ */
+function logado()
+{
+	// Seta o nome do Cookie
+	var nome_cookie = ' login=';
+	
+	// Recebe os cookies salvos
+	var cookies	= document.cookie;
+	
+	// Remove a parte que não interessa dos cookies
+	cookies = cookies.substr(cookies.indexOf(nome_cookie), cookies.length);
+	
+	// Obtém o valor do cookie até o ";"
+	if (cookies.indexOf(';') != -1) {
+        cookies = cookies.substr(0, cookies.indexOf(';'));
+    }
+	
+	// Remove o nome do cookie e o sinal de =
+	valor_cookie = cookies.split('=')[1];
+	
+	if(valor_cookie == 1)
+	{
+		$('#tela-bloqueio').html('').hide();
+		return true;
+	}
+	else
+	{
+		loadScript('js/tela_bloqueio.js');
+		return false;
+	}
 }
 //******************************************************************************

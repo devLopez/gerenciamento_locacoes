@@ -126,6 +126,10 @@
     <!-- #MAIN CONTENT (As páginas serão inseridas aqui via ajax) -->
     <div id="content"></div>
     <!--************************************************************-->
+    
+    <!-- Tela de bloqueio -->
+    <div id="tela-bloqueio"></div>
+    <!--*********************************************************************-->
 
 </div>
 <!-- END #MAIN PANEL -->
