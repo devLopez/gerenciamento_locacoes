@@ -57,13 +57,33 @@
                             <section class="col col-6">
                                 <div class="form-group">
                                     <label class="label">
+                                        <strong>CPF/ CNPJ</strong>
+                                    </label>
+									<span class="input-group">
+									   <label class="input">
+                                            <input class="form-control" name="cpf_cnpj" id="cpf_cnpj" type="text" placeholder="CPF/ CNPJ" required data-mask="999.999.999-99">
+                                        </label>
+                                        <span class="input-group-addon">
+                                            <label class="toggle checkbox-toggle">
+                                                <input type="checkbox" id="trocar_mascara" checked="checked">
+    											<i data-swchon-text="CPF" data-swchoff-text="CNPJ"></i>
+    										</label>
+    									</span>
+									</span>
+								</div>
+                            </section>
+                            <section class="col col-6">
+                                <div class="form-group">
+                                    <label class="label">
                                         <strong>Telefone</strong>
                                     </label>
                                     <label class="input">
-                                        <input class="form-control" name="telefone" id="telefone" type="text" maxlength="150" required>
+                                        <input class="form-control" name="telefone" id="telefone" type="text" maxlength="13" data-mask="(99)9999-9999" required>
                                     </label>
                                 </div>
                             </section>
+                        </div>
+                        <div class="row">
                             <section class="col col-6">
                                 <div class="form-group">
                                     <label class="label">
@@ -74,8 +94,6 @@
                                     </label>
                                 </div>
                             </section>
-                        </div>
-                        <div class="row">
                             <section class="col col-6">
                                 <div class="form-group">
                                     <label class="label">
@@ -122,6 +140,12 @@
 <script type="text/javascript">
     // Carrega o Script responsável pela calendário em português
     loadScript('./js/libs/jquery.ui.datepicker-pt-BR.js');
+
+    // Carrega o script para mascarar os inputs
+    loadScript('js/plugin/masked-input/jquery.maskedinput.min.js');
+
+    // Chama função que habilita funções e eventos para formulário
+    runAllForms();
     
     // Atribuição do valor da variável que será utilizada na Paginação
     var offset = 0;
@@ -136,6 +160,7 @@
         nextText: '<i class="fa fa-chevron-right"></i>',
         minDate: 0
     });
+    //**************************************************************************
 
     // Envia os dados do formulario via ajax
     $('#salvar_aviso').submit(function(e){
@@ -164,6 +189,7 @@
             }
         }); 
     });
+    //**************************************************************************
 
     // Evita o evento padrão para que a paginação seja feita com ajax
     $(document).on("click", ".pagination li a", function(e) {
@@ -172,6 +198,7 @@
         href = $(this).attr("href");
         get_data(href, $('#locacoes_cadastradas'));
     });
+    //**************************************************************************
 
     /**
      * buscar()
@@ -185,5 +212,21 @@
     {
         url = '<?php echo app_baseurl().'locacao_externa/buscar/'?>' + offset;
         get_data(url, $('#locacoes_cadastradas'));
+    }
+    //**************************************************************************
+
+    /** Função desenvolvida para mudar a máscara do cpf/cnpj **/
+    $('#trocar_mascara').click(function() {
+        if ($(this).prop('checked') == true) {
+        	mascarar('999.999.999-99');
+        } else {
+        	mascarar('99.999.999/9999-99');
+        }
+    });
+    //**************************************************************************
+
+    function mascarar(mascara)
+    {
+    	$('#cpf_cnpj').mask(mascara, {placeholder: '*'}).focus();
     }
 </script>

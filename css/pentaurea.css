@@ -46,6 +46,7 @@
 	z-index: 10000;
 }
 
+/** Estilo utilizado nas telas de bloqueio **/
 #tela-bloqueio {
 	position: fixed;
 	top: 0;
@@ -54,4 +55,9 @@
 	left: 0;
 	background-color: #ccc;
 	z-index: 9998;
+}
+
+/** Estilo utilizado para posicionar o toggle switch corretamente junto ao input **/
+.checkbox-toggle {
+	margin-top: -13px;
 }

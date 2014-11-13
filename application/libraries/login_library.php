@@ -66,7 +66,7 @@
                 {
                     setcookie('nome_usuario', $nome_usuario);
                     setcookie('user_pass', $senha_salva);
-                    setcookie('login', TRUE, time()+3600);
+                    setcookie('login', TRUE, (time() + 3600));
                     
                     $resposta['sucesso']    = TRUE;
                     $resposta['erro']       = '';

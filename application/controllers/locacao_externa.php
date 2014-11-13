@@ -67,12 +67,13 @@
         function salvar_locacao()
         {
             $locacao = array(
-                'instituicao'       => $this->input->post('instituicao'),
-                'responsavel'       => $this->input->post('responsavel'),
-                'telefone'          => $this->input->post('telefone'),
-                'email'             => $this->input->post('email'),
-                'data'              => $this->input->post('data'),
-                'espaco_necessario' => $this->input->post('espaco_necessario')
+                'instituicao'       => mysql_real_escape_string($this->input->post('instituicao')),
+                'responsavel'       => mysql_real_escape_string($this->input->post('responsavel')),
+                'cpf_cnpj'          => mysql_real_escape_string($this->input->post('cpf_cnpj')),
+                'telefone'          => mysql_real_escape_string($this->input->post('telefone')),
+                'email'             => mysql_real_escape_string($this->input->post('email')),
+                'data'              => mysql_real_escape_string($this->input->post('data')),
+                'espaco_necessario' => mysql_real_escape_string($this->input->post('espaco_necessario'))
             );
             
             echo $this->locacao_externa->salvar($locacao);

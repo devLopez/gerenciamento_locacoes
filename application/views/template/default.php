@@ -104,8 +104,6 @@
             // Carrega o script personalizado Pentáurea
             loadScript('./js/pentaurea.js');
 
-            // Verifica se o usuário está logado
-
             /** Inicialização dos tooltips e popovers **/
             $("[rel=tooltip]").tooltip();
             
