@@ -19,8 +19,8 @@
      * @package     Models
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.1.0
-     * @since       12/11/2014
+     * @version     v1.2.0
+     * @since       17/11/2014
      */
     class Locacao_externa_model extends MY_Model
     {
@@ -80,10 +80,16 @@
          * @access      Public
          * @param       int $limite Contém o limite da busca
          * @param       int $offset Contém o offset da busca
+         * @param       int $id     Contém o ID de um registro a ser buscado
          * @return      array Retorna um array com os registros do BD
          */
-        function buscar($limite, $offset)
+        function buscar($limite, $offset, $id = NULL)
         {
+            if($id)
+            {
+                $this->BD->where('id', $id);
+            }
+            
             $this->BD->limit($limite, $offset);
             $this->BD->where('status', 1);
             $this->BD->order_by('data');
@@ -137,6 +143,41 @@
                 return TRUE;
             }
         }
+        
+        /**
+         * atualizar()
+         * 
+         * Função desenvolvida para atualizar os dados de uma locação
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.2.0 - 17/11/2014
+         * @param       int     $id     Contém o ID do registro a ser alterado
+         * @param       array   $dados  Contém os dados que serão atualizados
+         * @return      bool Retorna TRUE se atualizar e FALSE se não atualizar
+         */
+        function atualizar($id, $dados) {
+            $this->_data = $dados;
+            
+            $this->BD->where('id', $id);
+            
+            $resposta = parent::update();
+            
+            if ($resposta) {
+                // Cria um novo Log no sistema
+                $log = array(
+                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'operacao'  => 'alteração (locação externa) -> ID REGISTRO -> '.$id
+                );
+                parent::salvar_log($log);
+                
+                return TRUE;
+                
+            } else {
+                return FALSE;
+            }
+        }
+        //**********************************************************************
     }
     /** End of File locacao_externa_model.php **/
     /** Location ./application/models/locacao_externa_model.php **/

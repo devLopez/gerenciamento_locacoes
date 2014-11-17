@@ -124,9 +124,9 @@
                     
                     <footer>
                         <button type="submit" class="btn btn-primary">
-                            Adicionar aviso
+                            Adicionar Locação
                         </button>
-                        <button id="atualizar_depois" type="button" class="btn btn-default" data-dismiss="modal">
+                        <button id="atualizar_depois" type="button" class="btn btn-default" data-dismiss="modal" onclick="limpar_campos($('#salvar_aviso'));">
                             Cancelar
                         </button>
                     </footer>
