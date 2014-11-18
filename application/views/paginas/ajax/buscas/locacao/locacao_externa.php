@@ -40,7 +40,7 @@
                             <td><?php echo date('d/m/Y', strtotime($row->data))?></td>
                             <td><?php echo $row->espaco_necessario?></td>
                             <td align="center">
-                                <a href="#" rel="tooltip" title="Visualizar">
+                                <a class="visualizar" href="<?php echo app_baseurl().'locacao_externa/detalhes_locacao/'.$row->id?>" rel="tooltip" title="Visualizar">
                                     <i class="fa fa-eye"></i>
                                 </a>
                                 <a class="excluir" href="#" rel="tooltip" title="Excluir" data-acao="excluir" data-id="<?php echo $row->id ?>">
@@ -123,5 +123,17 @@
             $('#edit_aluguel').modal('show');
             $('#formulario_edicao').html(e);
         });
+    });
+
+    /**
+     * Realiza a chamada para a página que visualiza as informações da locação
+     * além de possibilitar a inserção dos convidados para a locação selecionada
+     */
+    $('.visualizar').click(function(e){
+        e.preventDefault();
+
+        href = $(this).attr('href');
+
+        get_data(href);
     });
 </script>

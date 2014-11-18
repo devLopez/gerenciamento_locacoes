@@ -18,7 +18,7 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.3.0
+     * @version     v1.4.0
      * @since       17/11/2014
      */
     class Locacao_externa extends MY_Controller
@@ -37,6 +37,7 @@
             
             // Carrega o model necessário para as transações com o BD
             $this->load->model('locacao_externa_model', 'locacao_externa');
+            $this->load->model('convidados_model', 'convidados');
         }
         //**********************************************************************
         
@@ -51,7 +52,7 @@
          */
         function index()
         {
-            $this->load->view('paginas/ajax/locacoes_externas');
+            $this->load->view('paginas/ajax/locacao/locacoes_externas');
         }
         //**********************************************************************
         
@@ -112,7 +113,7 @@
             $this->dados['verificador'] = $offset;
             
             //Chama a view
-            $this->load->view('paginas/ajax/buscas/locacao_externa', $this->dados);
+            $this->load->view('paginas/ajax/buscas/locacao/locacao_externa', $this->dados);
         }
         //**********************************************************************
         
@@ -136,7 +137,7 @@
                     break;
                 case 'editar':
                     $this->dados['locacao'] = $this->locacao_externa->buscar(1, 0, $id);
-                    $this->load->view('paginas/ajax/editar/locacao_externa', $this->dados);
+                    $this->load->view('paginas/ajax/editar/locacao/locacao_externa', $this->dados);
                     break;
                 default:
                     echo 'Nenhuma ação foi passada';
@@ -172,6 +173,76 @@
             // Executa a ação
             echo $this->locacao_externa->atualizar($id, $locacao);
         }
+        //**********************************************************************
+        
+        /**
+         * detalhes_locacao()
+         * 
+         * Função desenvolvida para exibição dos detalhes da locação. Neste
+         * espaço, poderão ser inseridos os nomes dos convidados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.4.0 - 17/11/2014
+         * @param       int $id     Contém o ID do registro a ser buscado
+         */
+        function detalhes_locacao($id)
+        {
+            $this->dados['locacao'] = $this->locacao_externa->buscar(1, 0, $id);
+            
+            $this->load->view('paginas/ajax/locacao/detalhes_locacao', $this->dados);
+        }
+        //**********************************************************************
+        
+        /**
+         * buscar_convidados()
+         * 
+         * Função desenvolvida para buscar os convidados de um evento
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.4.0 - 17/11/2014
+         */
+        function buscar_convidados($id)
+        {
+            // Recebe os dados do BD
+            $this->dados['convidados'] = $this->convidados->get($id);
+            
+            // Chama a visão
+            $this->load->view('paginas/ajax/buscas/locacao/convidados', $this->dados);
+        }
+        //**********************************************************************
+        
+        /**
+         * salvar_convidados()
+         * 
+         * Função desenvolvida para salvar convidados de um evento na base de
+         * dados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.4.0 - 17/11/2014
+         * @return      bool Retorna TRUE se salvar e FALSE se não salvar
+         */
+        function salvar_convidados()
+        {
+            $id_locacao_externa = $this->input->post('id_locacao_externa');
+            $nome_convidado     = $this->input->post('nome_convidado');
+            $cpf                = $this->input->post('cpf');
+            
+            if(is_array($nome_convidado) && is_array($cpf))
+            {
+                for ($i = 0; $i < count($nome_convidado); $i++)
+                {
+                    $dados[$i]['id_locacao_externa']    = $id_locacao_externa; 
+                    $dados[$i]['nome_convidado']        = $nome_convidado[$i];
+                    $dados[$i]['cpf']                   = $cpf[$i];
+                }
+                
+                echo $this->convidados->insert($dados);
+            }
+        }
+        //**********************************************************************
     }
     /** End of File locacao_externa.php **/
     /** Location ./application/controllers/locacao_externa.php **/
