@@ -18,8 +18,8 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.4.0
-     * @since       17/11/2014
+     * @version     v1.4.1
+     * @since       19/11/2014
      */
     class Locacao_externa extends MY_Controller
     {
@@ -241,6 +241,62 @@
                 
                 echo $this->convidados->insert($dados);
             }
+        }
+        //**********************************************************************
+        
+        /**
+         * acoes_convidados()
+         * 
+         * Função desenvolvida para executar ações sobre os convidados de um 
+         * evento
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.4.1 - 19/11/2014
+         * @return      bool Retorna TRUE se executar corretamente e FALSE se
+         *              falhar
+         */
+        function acoes_convidados()
+        {
+            //Recebe os dados passados via post
+            $id     = $this->input->post('id');
+            $acao   = $this->input->post('acao');
+            
+            switch ($acao)
+            {
+                case 'excluir':
+                    echo $this->convidados->delete($id);
+                    break;
+                case 'editar':
+                    $this->dados['convidado'] = $this->convidados->get(NULL, $id);
+                    $this->load->view('paginas/ajax/editar/locacao/convidados', $this->dados);
+                    break;
+                default:
+                    echo 'Ação Não suportada';
+                    break;
+            }
+        }
+        //**********************************************************************
+        
+        /**
+         * atualizar_convidado()
+         * 
+         * Função desenvolvida para atualizar os dados de um convidado
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.4.1 - 19/11/2014
+         * @return      bool Retorna TRUE se atualizar e FALSE se não atualizar
+         */
+        function atualizar_convidado()
+        {
+            $id = $this->input->post('id');
+            $dados = array(
+                'nome_convidado'    => mysql_real_escape_string($this->input->post('e_nome_convidado')),
+                'cpf'               => $this->input->post('e_cpf')
+            );
+            
+            echo $this->convidados->update($id, $dados);
         }
         //**********************************************************************
     }

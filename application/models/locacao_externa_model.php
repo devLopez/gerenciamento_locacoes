@@ -55,19 +55,7 @@
         {
             $this->_data = $dados;
             
-            $resposta = parent::salvar();
-            
-            if($resposta)
-            {
-                // Cria um novo log do sistema
-                $logs = array(
-                    'usuario'   => $_COOKIE['nome_usuario'],
-                    'operacao'  => 'inserção (locação externa)-> '.$dados['instituicao'].' - '.$dados['responsavel'].' - '.date('d/m/Y', strtotime($dados['data'])).''
-                );
-                parent::salvar_log($logs);
-                
-                return TRUE;
-            }
+            return parent::salvar();
         }
         //**********************************************************************
         
@@ -136,13 +124,16 @@
                 // Cria um novo log do sistema
                 $logs = array(
                     'usuario'   => $_COOKIE['nome_usuario'],
-                    'operacao'  => 'exclusão (locação externa)-> ID REGISTRO -> '.$id.''
+                    'operacao'  => 'exclusão [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
                 );
                 parent::salvar_log($logs);
                 
                 return TRUE;
+            } else {
+                return FALSE;
             }
         }
+        //**********************************************************************
         
         /**
          * atualizar()
@@ -167,7 +158,7 @@
                 // Cria um novo Log no sistema
                 $log = array(
                     'usuario'   => $_COOKIE['nome_usuario'],
-                    'operacao'  => 'alteração (locação externa) -> ID REGISTRO -> '.$id
+                    'operacao'  => 'alteração [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
                 );
                 parent::salvar_log($log);
                 

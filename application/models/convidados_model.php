@@ -18,8 +18,8 @@
      * @package     Models
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       18/11/2014
+     * @version     v1.1.0
+     * @since       19/11/2014
      */
     class Convidados_model extends MY_Model
     {
@@ -53,9 +53,19 @@
          * @return      mixed Retorna um array de convidados ou NULL se não 
          *              houver convidados
          */
-        function get($id)
+        function get($id_locacao = NULL, $id_convidado = NULL)
         {
-            $this->BD->where('id_locacao_externa', $id);
+            if($id_locacao)
+            {
+                $this->BD->where('id_locacao_externa', $id_locacao);
+            }
+            if($id_convidado)
+            {
+                $this->BD->where('id', $id_convidado);
+            }
+            
+            $this->BD->where('status', 1);
+            $this->BD->order_by('nome_convidado');
             
             return parent::get();
         }
@@ -78,6 +88,77 @@
             return $this->BD->insert_batch($this->_tabela, $convidados);
         }
         //**********************************************************************
+        
+        /**
+         * delete()
+         * 
+         * Função desenvolvida para apagar o registro de um convidado
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 19/11/2014
+         * @param       int $id Recebe o ID do registro a ser excluido
+         * @return      bool Retorna TRUE se apagar e FALSE se não apagar
+         */
+        function delete($id)
+        {
+            $this->_data = array('status' => 0);
+            
+            $this->BD->where('id', $id);
+            
+            $resposta = parent::update();
+            
+            if ($resposta)
+            {
+                $logs = array(
+                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'operacao'  => 'exclusão [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
+                );
+                
+                parent::salvar_log($logs);
+                
+                return TRUE;
+            } else {
+                return FALSE;
+            }
+        }
+        //**********************************************************************
+        
+        /**
+         * update()
+         * 
+         * Realiza atualização nos registros
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 19/11/2014
+         * @param       int     $id     Recebe o ID do registro a ser alterado
+         * @param       array   $dados  Recebe os dados a serem atualizados
+         */
+        function update($id, $dados)
+        {
+            $this->_data = $dados;
+            
+            $this->BD->where('id', $id);
+            
+            $resposta = parent::update();
+            
+            if($resposta)
+            {
+                $logs = array(
+                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'operacao'  => 'Update [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
+                );
+                
+                parent::salvar_log($logs);
+                
+                return TRUE;
+            }
+            else
+            {
+                return FALSE;
+            }
+        }
     }
     /** End of File convidados_model.php **/
     /** Location ./application/models/convidados_model.php **/
