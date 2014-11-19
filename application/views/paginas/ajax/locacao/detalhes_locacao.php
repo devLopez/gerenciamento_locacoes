@@ -7,7 +7,7 @@
     </div>
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <div class="btn-group pull-right">
-            <a href="#" class="btn btn-primary btn-small">
+            <a id="voltar" href="<?php echo app_baseurl().'locacao_externa'?>" class="btn btn-primary btn-small">
                <i class="fa fa-reply"></i> Voltar
             </a>
             <a href="#" class="btn btn-primary btn-small" id="add" onclick="form_convidados();">
@@ -238,6 +238,13 @@
                         }
                     }
                 });
+            });
+
+            // Volta para a página de listagem de locações cadastradas
+            $('#voltar').click(function(e){
+                e.preventDefault();
+
+                get_data($(this).attr('href'));
             });
         </script>
         <?php

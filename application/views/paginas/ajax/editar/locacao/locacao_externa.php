@@ -41,7 +41,7 @@
         					<label class="label"> <strong>CPF/ CNPJ</strong></label>
         					<span class="input-group">
         					   <label class="input">
-        					       <input class="form-control" name="e_cpf_cnpj" id="e_cpf_cnpj" type="text" placeholder="CPF/ CNPJ" required data-mask="999.999.999-99" value="<?php echo $row->cpf_cnpj?>">
+        					       <input class="form-control" name="e_cpf_cnpj" id="e_cpf_cnpj" type="text" placeholder="CPF/ CNPJ" required value="<?php echo $row->cpf_cnpj?>">
         					   </label>
         					   <span class="input-group-addon">
         					       <label class="toggle checkbox-toggle">
