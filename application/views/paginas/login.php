@@ -44,6 +44,8 @@
     	$('#login').submit(function(e){
         	e.preventDefault();
 
+        	$('#entrar').button('loading');
+
         	//Recebe os dados para enviar para o processamento
         	dados   = 'usuario='+$('#usuario').val()+'&senha='+$('#senha').val();
             
@@ -61,6 +63,7 @@
                     
                     if(e.erro)
                     {
+                    	$('#entrar').button('reset');
                         msg_erro(e.erro);
                         return false;
                     }
