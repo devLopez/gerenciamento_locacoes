@@ -18,7 +18,7 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.4.1
+     * @version     v1.5.0
      * @since       19/11/2014
      */
     class Locacao_externa extends MY_Controller
@@ -202,6 +202,7 @@
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
          * @since       v1.4.0 - 17/11/2014
+         * @param       int $id Recebe o id do evento
          */
         function buscar_convidados($id)
         {
@@ -297,6 +298,25 @@
             );
             
             echo $this->convidados->update($id, $dados);
+        }
+        //**********************************************************************
+        
+        /**
+         * impressao_lista()
+         * 
+         * Função desenvolvida para imprimir a lista de convidados de um evento
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.5.0 - 21/11/2014
+         * @param       int $id_evento Recebe o ID do evento a ser buscado
+         */
+        function impressao_lista($id_evento)
+        {
+            $this->dados['evento']      = $this->locacao_externa->buscar(1, 0, $id_evento);
+            $this->dados['convidados']  = $this->convidados->get($id_evento);
+            
+            $this->load->view('paginas/ajax/buscas/locacao/impressao_lista', $this->dados);
         }
         //**********************************************************************
     }

@@ -8,6 +8,7 @@
                 Não foram encontrados convidados para este evento
             </p>
         </div>
+        <script>$('#imprimir').prop('disabled', true).addClass('disabled');</script>
         <?php
     }
     else

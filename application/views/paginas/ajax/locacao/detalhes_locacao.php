@@ -7,11 +7,14 @@
     </div>
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <div class="btn-group pull-right">
-            <a id="voltar" href="<?php echo app_baseurl().'locacao_externa'?>" class="btn btn-primary btn-small">
-               <i class="fa fa-reply"></i> Voltar
+            <a id="voltar" href="<?php echo app_baseurl().'locacao_externa'?>" class="btn btn-default btn-small" title="Voltar" rel="tooltip">
+               <i class="fa fa-reply"></i>
             </a>
-            <a href="#" class="btn btn-primary btn-small" id="add" onclick="form_convidados();">
-                <i class="fa fa-plus"></i> Adicionar Convidados
+            <a href="#" class="btn btn-default btn-small" id="add" onclick="form_convidados();" title="Adicionar Convidados" rel="tooltip">
+                <i class="fa fa-plus"></i>
+            </a>
+            <a href="#" target="_blank" class="btn btn-default btn-small" rel="tooltip" title="Imprimir Lista" data-placement="left" id="imprimir">
+                <i class="fa fa-print"></i>
             </a>
         </div>
     </div>
@@ -28,7 +31,7 @@
                 Ocorreu um erro na busca dos dados. Volte e tente novamente
             </p>
         </div>
-        <script>$('#add').prop('disabled', true).addClass('disabled');</script>
+        <script>$('#add, #imprimir').prop('disabled', true).addClass('disabled');</script>
         <?php
     }
     else
@@ -133,6 +136,7 @@
         </div>
         <!--*****************************************************************-->
         <script type="text/javascript">
+            //Chama a função que realiza a busca dos dados
             buscar();
             
             /** Realiza a busca dos usuários cadastrados **/
@@ -246,6 +250,9 @@
 
                 get_data($(this).attr('href'));
             });
+
+            //Adiciona o atributo de href no link de impressão da lista
+            $('#imprimir').attr('href', '<?php echo app_baseurl().'locacao_externa/impressao_lista/'.$dados['id'];?>');
         </script>
         <?php
     }
