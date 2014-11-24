@@ -89,6 +89,8 @@
             setcookie('user_pass');
             setcookie('login');
             
+            unset($_SESSION['permissoes']);
+            
             redirect(app_baseurl().'login');
         }
         //**********************************************************************       

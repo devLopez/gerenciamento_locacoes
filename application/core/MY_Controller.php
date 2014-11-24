@@ -54,6 +54,13 @@
         protected $titulo;
         
         /**
+         * Indica as permissões necessárias para acessar uma classe
+         *
+         * @var array
+         */
+        protected $_permissao;
+        
+        /**
          * __construct()
          * 
          * Realiza a construção da classe

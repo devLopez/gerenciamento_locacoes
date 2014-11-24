@@ -23,6 +23,7 @@
      */
     class Inicio extends MY_Controller
     {
+        protected $_permissao = array('atendimento', 'esportivo');
         /**
          * __construct()
          * 

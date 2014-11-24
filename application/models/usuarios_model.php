@@ -18,8 +18,8 @@
      * @package     Models
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       06/11/2014
+     * @version     v1.1.0
+     * @since       24/11/2014
      */
     class Usuarios_model extends MY_Model
     {
@@ -55,6 +55,27 @@
             return parent::get();
         }
         //**********************************************************************
+        
+        /**
+         * buscar_permissoes()
+         * 
+         * Função desenvolvida para buscar as permissões do usuário
+         * 
+         * 
+         */
+        function buscar_permissoes($id)
+        {
+            $query = $this->BD->query('
+                SELECT nome_grupo FROM grupos_usuarios, permissoes WHERE
+                permissoes.id_grupo = grupos_usuarios.id AND
+                permissoes.id_usuario = '.$id.'
+            ');
+            
+            if ($query)
+            {
+                return $query->result();
+            }
+        }
     }
     /** End of File login_model.php **/
     /** Location ./application/models/login_model.php **/

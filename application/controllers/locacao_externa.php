@@ -35,9 +35,22 @@
         {
             parent::__construct(TRUE);
             
+            // Define as permissões de acesso desta classe
+            $this->_permissao = array('administradores', 'atendimento', 'esportivo');
+            
             // Carrega o model necessário para as transações com o BD
-            $this->load->model('locacao_externa_model', 'locacao_externa');
+            $this->load->model('locacao_externa_model', 'm_locacao_externa');
             $this->load->model('convidados_model', 'convidados');
+            
+            // Carrega library para verificar as permissões de usuário
+            $this->load->library('login_library');
+            
+            // Verifica se o usuário possui a permissão
+            if(!$this->login_library->verifica_permissao($this->_permissao))
+            {
+                $this->dados['erro'] = "Você não possui permissão para acessar este módulo";
+                $this->load->view('paginas/erros/erro_permissao', $this->dados);
+            }
         }
         //**********************************************************************
         
@@ -77,7 +90,7 @@
                 'espaco_necessario' => mysql_real_escape_string($this->input->post('espaco_necessario'))
             );
             
-            echo $this->locacao_externa->salvar($locacao);
+            echo $this->m_locacao_externa->salvar($locacao);
         }
         //**********************************************************************
         
@@ -96,16 +109,16 @@
             $limite = 10;
             
             //Recebe os dados do Banco de dados
-            $this->dados['locacoes']    = $this->locacao_externa->buscar($limite, $offset);
+            $this->dados['locacoes']    = $this->m_locacao_externa->buscar($limite, $offset);
             if (!$this->dados['locacoes'] && $offset > 0) {
                 $offset = $offset - $limite;
-                $this->dados['locacoes']    = $this->locacao_externa->buscar($limite, $offset);
+                $this->dados['locacoes']    = $this->m_locacao_externa->buscar($limite, $offset);
             }
             
             //Configurações da paginação
             $config['base_url']     = app_baseurl().'locacao_externa/buscar';
             $config['per_page']     = $limite;
-            $config['total_rows']   = $this->locacao_externa->contar();
+            $config['total_rows']   = $this->m_locacao_externa->contar();
             
             //Inicializa a paginação e cria os links
             $this->pagination->initialize($config);
@@ -133,10 +146,10 @@
             switch ($acao)
             {
                 case 'excluir':
-                    echo $this->locacao_externa->apagar($id);
+                    echo $this->m_locacao_externa->apagar($id);
                     break;
                 case 'editar':
-                    $this->dados['locacao'] = $this->locacao_externa->buscar(1, 0, $id);
+                    $this->dados['locacao'] = $this->m_locacao_externa->buscar(1, 0, $id);
                     $this->load->view('paginas/ajax/editar/locacao/locacao_externa', $this->dados);
                     break;
                 default:
@@ -171,7 +184,7 @@
             );
             
             // Executa a ação
-            echo $this->locacao_externa->atualizar($id, $locacao);
+            echo $this->m_locacao_externa->atualizar($id, $locacao);
         }
         //**********************************************************************
         
@@ -188,7 +201,7 @@
          */
         function detalhes_locacao($id)
         {
-            $this->dados['locacao'] = $this->locacao_externa->buscar(1, 0, $id);
+            $this->dados['locacao'] = $this->m_locacao_externa->buscar(1, 0, $id);
             
             $this->load->view('paginas/ajax/locacao/detalhes_locacao', $this->dados);
         }
@@ -313,7 +326,7 @@
          */
         function impressao_lista($id_evento)
         {
-            $this->dados['evento']      = $this->locacao_externa->buscar(1, 0, $id_evento);
+            $this->dados['evento']      = $this->m_locacao_externa->buscar(1, 0, $id_evento);
             $this->dados['convidados']  = $this->convidados->get($id_evento);
             
             $this->load->view('paginas/ajax/buscas/locacao/impressao_lista', $this->dados);

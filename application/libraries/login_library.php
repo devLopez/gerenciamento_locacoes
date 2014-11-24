@@ -18,8 +18,8 @@
      * @package     Libraries
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       06/11/2014
+     * @version     v1.1.0
+     * @since       24/11/2014
      */
     class Login_library extends CI_Controller
     {
@@ -34,6 +34,9 @@
         public function __construct()
         {
             parent::__construct();
+            
+            // Carrega o model responsável
+            $this->load->model('usuarios_model', 'usuarios');
         }
         //**********************************************************************
         
@@ -50,8 +53,6 @@
          */
         function logar($dados)
         {
-            $this->load->model('usuarios_model', 'usuarios');
-            
             $usuarios = $this->usuarios->usuarios_login($dados);
             
             if($usuarios)
@@ -60,14 +61,20 @@
                 {
                     $senha_salva    = $row->senha;
                     $nome_usuario   = $row->nome_completo;
+                    $id_usuario     = $row->id;
                 }
                 
                 if(password_verify($dados['senha'], $senha_salva))
                 {
+                    // Seta os Cookies com os dados do usuário
                     setcookie('nome_usuario', $nome_usuario);
                     setcookie('user_pass', $senha_salva);
                     setcookie('login', TRUE, (time() + 3600));
                     
+                    // Seta a seção com as permissões do usuário
+                    $_SESSION['permissoes'] = $this->buscar_permissao($id_usuario);
+                    
+                    // Seta as mensagens de erro ou sucesso
                     $resposta['sucesso']    = TRUE;
                     $resposta['erro']       = '';
                 }
@@ -84,6 +91,77 @@
             return $resposta;
         }
         //**********************************************************************
+        
+        /**
+         * busca_permissoes()
+         * 
+         * Função desenvolvida para buscar as permissões cadastradas para um 
+         * usuário
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Private
+         * @since       v1.1.0 - 24/11/2014
+         * @param       int $id Recebe o ID do usuário logado
+         * 
+         */
+        private function buscar_permissao($id)
+        {
+            $permissoes =  $this->usuarios->buscar_permissoes($id);
+            
+            $i = 0;
+            
+            foreach ($permissoes as $row)
+            {
+                $permissao[$i] = $row->nome_grupo;
+                $i++;
+            }
+            
+            return $permissao;
+        }
+        //**********************************************************************
+        
+        /**
+         * verifica_permissao()
+         * 
+         * Função desenvolvida para verificar as permissões de acesso do usuário
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 24/11/2014
+         * @param       mixed $permissao_necessaria Contém o nível de permissão
+         *              para o acesso
+         * @return      Se encontrar a permissão, retorna TRUE, senão, retorna
+         *              FALSE
+         */
+        function verifica_permissao($permissao_necessaria)
+        {
+            if(!is_array($permissao_necessaria))
+            {
+                return in_array($permissao_necessaria, $_SESSION['permissoes']);
+            }
+            else
+            {
+                $conta_permissoes = 0;
+                
+                foreach ($permissao_necessaria as $permissao)
+                {
+                    if(in_array($permissao, $_SESSION['permissoes']))
+                    {
+                        $conta_permissoes =+ 1;
+                    }
+                }
+                
+                if($conta_permissoes > 0)
+                {
+                    return TRUE;
+                }
+                else
+                {
+                    return FALSE;
+                }
+            }
+        }
+        //********************************************************************** 
     }
     /** End of File login_library.php **/
     /** Location ./application/libraries/login_library.php **/
