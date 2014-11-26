@@ -51,7 +51,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="index.php?/materiais_esportivos">
                     <i class="fa fa-lg fa-fw fa-dribbble"></i> 
                     <span>Materiais Esportivos</span>
                 </a>

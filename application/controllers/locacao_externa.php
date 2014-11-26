@@ -36,7 +36,7 @@
             parent::__construct(TRUE);
             
             // Define as permissões de acesso desta classe
-            $this->_permissao = array('administradores', 'atendimento', 'esportivo');
+            $this->_permissao = array('administradores', 'atendimento');
             
             // Carrega o model necessário para as transações com o BD
             $this->load->model('locacao_externa_model', 'm_locacao_externa');
