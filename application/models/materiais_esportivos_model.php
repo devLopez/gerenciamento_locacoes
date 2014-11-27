@@ -18,8 +18,8 @@
      * @package     Models
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       26/11/2014
+     * @version     v1.1.0
+     * @since       27/11/2014
      */
     class Materiais_esportivos_model extends MY_Model
     {
@@ -61,8 +61,9 @@
             $this->BD->select('emprestimos.id, nome_tomador, localizacao_tomador, data_emprestimo, status, item');
             $this->BD->from('emprestimos, itens_esportivos');
             
-            $where = "emprestimos.id_item_esportivo = itens_esportivos.id AND data_emprestimo >= '$data_inicio 00:00:00' AND data_emprestimo <= '$data_final 23:59:59' AND status = 1";
+            $where = "emprestimos.id_item_esportivo = itens_esportivos.id AND data_emprestimo >= '$data_inicio 00:00:00' AND data_emprestimo <= '$data_final 23:59:59'";
             $this->BD->where($where);
+            $this->BD->order_by('data_emprestimo');
             
             return $this->BD->get()->result();
         }
@@ -79,10 +80,63 @@
          * @return      int Retorna a quantidade de registros no banco
          */
         function contar()
-        {
-            $this->BD->where('status', 1);
-            
+        {            
             return parent::contar();
+        }
+        //**********************************************************************
+        
+        /**
+         * salvar()
+         * 
+         * Função desenvolvida para salvar um novo empréstimo no banco de dados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 27/11/2014
+         * @param       array   $dados Recebe os dados para o novo empréstimo
+         * @return      bool    Retorna TRUE se salvar e FALSE se não salvar
+         */
+        function salvar($dados)
+        {
+            $this->_data = $dados;
+            return parent::salvar();
+        }
+        //**********************************************************************
+        
+        /**
+         * update()
+         * 
+         * Função desenvolvida para realizar alterações nos empréstimos realizados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 27/11/2014
+         * @param       int     $id     Recebe o ID do registro a ser alterado
+         * @param       array   $dados  Recebe os dados que serão atualizados
+         * @return      bool    Retorna TRUE se alterar e FALSE se não alterar
+         */
+        function update($id, $dados)
+        {
+            $this->_data        = $dados;
+            $this->BD->where('id', $id);
+            
+            $resposta = parent::update();
+            
+            if ($resposta)
+            {
+                $logs = array(
+                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'operacao'  => 'alteração [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
+                );
+                
+                parent::salvar_log($logs);
+                
+                return TRUE;
+            }
+            else
+            {
+                return FALSE;
+            }
         }
         //**********************************************************************
     }

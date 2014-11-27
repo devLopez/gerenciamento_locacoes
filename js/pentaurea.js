@@ -5,7 +5,7 @@
  */
 
 /** Define o endereço global de uma url requisitada **/
-var url_global 			= '';
+var url_global          = '';
 var container_global	= '';
 
 /**
@@ -39,12 +39,12 @@ loadAjax(inicio);
  */
 function loadAjax(url, container)
 {
-	url_global 			= url;
+	url_global 		= url;
 	container_global	= container;
 	
 	if (logado() == true)
 	{
-		/** Remove qualquer classe ativa no menu **/
+            /** Remove qualquer classe ativa no menu **/
 	    $("nav li.active").removeClass("active");
 	    
 	    /**
@@ -80,7 +80,11 @@ function loadAjax(url, container)
  */
 function get_data(url, container)
 {
-	
+    url_global 		= url;
+    container_global	= container;
+    
+    if(logado() == true)
+    {
 	if(container == undefined)
 	{
 		container = $("#content:not(.container)");
@@ -92,6 +96,7 @@ function get_data(url, container)
 	}).fail(function() {
 		container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
 	});
+    }
 }
 //******************************************************************************
 

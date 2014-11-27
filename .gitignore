@@ -2,3 +2,6 @@
 .buildpath
 .project
 .settings/*
+
+# Ignora os arquivos do netbeans
+/nbproject/*

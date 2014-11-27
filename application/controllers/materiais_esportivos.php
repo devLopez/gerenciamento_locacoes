@@ -7,7 +7,7 @@
      *  
      *  @package    SGL
      *  @author     Masterkey Informática
-     *  @copyright	Copyright (c) 2010 - 2014, Masterkey Informática LTDA
+     *  @copyright  Copyright (c) 2010 - 2014, Masterkey Informática LTDA
      */
 
     /**
@@ -19,8 +19,8 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       25/11/2014
+     * @version     v1.1.0
+     * @since       27/11/2014
      */
     class Materiais_esportivos extends MY_Controller
     {
@@ -39,6 +39,7 @@
             
             // Carrega o model responsável pelas transações
             $this->load->model('materiais_esportivos_model', 'm_materiais_esportivos');
+            $this->load->model('itens_esportivos_model', 'm_itens_esportivos');
             
             // Define as permissões de acesso à este controller
             $this->_permissao = array('administradores', 'esportivo');
@@ -108,6 +109,89 @@
             
             // Carrega a visão
             $this->load->view('paginas/ajax/buscas/material_esportivo/material_esportivo', $this->dados);
+        }
+        //**********************************************************************
+        
+        /**
+         * combo_materiais_esportivos()
+         * 
+         * Função desenvolvida para buscar os materiais esportivos cadastrados
+         * para preencher uma combobox
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 27/11/2014
+         */
+        function combo_materiais_esportivos()
+        {
+            $itens_esportivos = $this->m_itens_esportivos->buscar();
+            
+            if($itens_esportivos)
+            {
+                echo "<option>Selecione uma opção</option>";
+                
+                foreach ($itens_esportivos as $row)
+                {
+                    echo "<option value='$row->id'>$row->item</option>";
+                }
+            }
+            else
+            {
+                echo "Não há itens cadastrados";
+            }
+        }
+        //**********************************************************************
+        
+        /**
+         * salvar_emprestimo()
+         * 
+         * Função desenvolvida para salvar um novo empréstimo de material
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 27/11/2014
+         * @return      bool Retorna TRUE se salvar e FALSE se não salvar
+         */
+        function salvar_emprestimo()
+        {
+            $dados = array(
+                'nome_tomador'          => mysql_real_escape_string($this->input->post('nome_tomador')),
+                'localizacao_tomador'   => mysql_real_escape_string($this->input->post('localizacao_tomador')),
+                'id_item_esportivo'     => mysql_real_escape_string($this->input->post('id_item_esportivo')),
+                'status'                => 1
+            );
+            
+            echo $this->m_materiais_esportivos->salvar($dados);
+        }
+        //**********************************************************************
+        
+        /**
+         * processar_comando()
+         * 
+         * Função desenvolvida para processar diversos comandos solicitados pelo
+         * usuário
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 27/11/2014
+         * @return      mixed Retorna um tipo diferente, dependendo da ação do 
+         *              usuário
+         */
+        function processar_comando()
+        {
+            $acao   = $this->input->post('acao');
+            $id     = $this->input->post('id');
+            
+            switch ($acao)
+            {
+                case 'devolver':
+                    $dados = array('status' => 0);
+                    echo $this->m_materiais_esportivos->update($id, $dados);
+                    break;
+                default :
+                    echo "Não implementado";
+                    break;
+            }
         }
         //**********************************************************************
     }

@@ -7,21 +7,21 @@
      *  
      *  @package    SGL
      *  @author     Masterkey Informática
-     *  @copyright	Copyright (c) 2010 - 2014, Masterkey Informática LTDA
+     *  @copyright  Copyright (c) 2010 - 2014, Masterkey Informática LTDA
      */
 
     /**
      * MY_Model
      * 
      * Subclasse modular padrão do sistema. Todas as variáveis protegidas que
-	 * serão utilizadas pelos models são definidas aqui. Todos os models devem
-	 * extender esta classe
-	 * 
-	 * @package    Core
-	 * @author     Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-	 * @access     Public
-	 * @version    v1.3.0
-	 * @since      12/11/2014
+     * serão utilizadas pelos models são definidas aqui. Todos os models devem
+     * extender esta classe
+     * 
+     * @package    Core
+     * @author     Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+     * @access     Public
+     * @version    v1.3.0
+     * @since      12/11/2014
      */
     class MY_Model extends CI_Model
     {
