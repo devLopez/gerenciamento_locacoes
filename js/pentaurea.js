@@ -52,6 +52,9 @@ function loadAjax(url, container)
 	     * o elemento como active, podendo assim, desenhar o breadCrumb
 	     */
 	    $('nav li:has(a[href="'+url+'"])').addClass("active");
+            
+            // Recebe o texto que está no menú
+            titulo = $('nav li:has(a[href="'+url+'"])').text();
 	    
 	    if(container == undefined)
 	    {
@@ -59,6 +62,15 @@ function loadAjax(url, container)
 	    }
 
 	    $.get(url, function(e) {
+                /**
+                 * Insere na barra de endereço a url que está sendo solicitada,
+                 * além de inserir os dados no hitórico do browser.
+                 * 
+                 * @author  :   Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+                 * @see     :   http://www.igorescobar.com/blog/2012/05/05/mudando-a-barra-de-endereco-do-browser-sem-refresh/
+                 */
+                window.history.pushState('Object',titulo, url);
+                
 	        container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
 	        drawBreadCrumb();
 	    }).fail(function() {
