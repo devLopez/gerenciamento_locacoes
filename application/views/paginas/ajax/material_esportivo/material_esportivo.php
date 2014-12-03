@@ -103,7 +103,7 @@
                         <a class="btn btn-default" onclick="limpar_campos($('#salvar_emprestimo'))" data-dismiss="modal">
                             Fechar esta janela
                         </a>
-                    </footer>                        
+                    </footer>
                 </form>
             </div>
         </div>

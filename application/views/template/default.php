@@ -22,8 +22,6 @@
         <link rel="shortcut icon" href="./img/favicon/icon.png" type="image/png">
         <link rel="icon" href="./img/favicon/icon.png" type="image/png">
 
-        <!-- #GOOGLE FONT -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
     </head>
     <body class="smart-style-2 menu-on-top">
         <!-- Exibe o progresso das requisições ajax -->

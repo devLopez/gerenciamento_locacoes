@@ -18,8 +18,8 @@
      * @package     Models
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.1.0
-     * @since       27/11/2014
+     * @version     v1.2.0
+     * @since       28/11/2014
      */
     class Materiais_esportivos_model extends MY_Model
     {
@@ -137,6 +137,24 @@
             {
                 return FALSE;
             }
+        }
+        //**********************************************************************
+        
+        /**
+         * buscar_by_id()
+         * 
+         * Função desenvolvida para buscar os dados de um empréstimos pelo id
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.2.0 - 28/11/2014
+         * @param       int     $id Recebe o ID do registro a ser buscado
+         * @return      array   retorna um array com os dados do registro
+         */
+        function buscar_by_id($id)
+        {
+            $this->BD->where('id', $id);
+            return parent::get();
         }
         //**********************************************************************
     }

@@ -38,13 +38,13 @@
                                 <?php echo ($row->status == 1) ? "<span class='label label-warning'>Emprestado</span>" : "<span class='label label-primary'>Devolvido</span>"; ?>
                             </td>
                             <td align="center">
-                                <a class="editar" href="#" rel="tooltip" title="Editar" data-acao="editar" data-id="<?php echo $row->id?>" data-href="<?php echo app_baseurl().'materiais_esportivos/processar_comando'?>">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
                                 <?php
                                     if($row->status == 1)
                                     {
                                         ?>
+                                        <a class="editar" href="#" rel="tooltip" title="Editar" data-acao="editar" data-id="<?php echo $row->id?>" data-href="<?php echo app_baseurl().'materiais_esportivos/processar_comando'?>">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
                                         <a class="devolver" href="#" rel="tooltip" title="Devolver" data-acao="devolver" data-id="<?php echo $row->id?>" data-href="<?php echo app_baseurl().'materiais_esportivos/processar_comando'?>">
                                             <i class="fa fa-level-down"></i>
                                         </a>
@@ -62,6 +62,31 @@
     }
 ?>
 
+<div class="modal fade" id="ed_emprestimo" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <img src="./img/reservado/logo.png" width="150" alt="Clube Campestre Pentáurea">
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+                <form id="salvar_ed_emprestimo" class="smart-form">
+                    <fieldset id="campos"></fieldset>
+                    <footer>
+                        <button class="btn btn-primary" type="submit">
+                            Atualizar dados
+                        </button>
+                        <a class="btn btn-default" onclick="limpar_campos($('#ed_emprestimo'))" data-dismiss="modal">
+                            Fechar esta janela
+                        </a>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Funçao desenvolvida para devolver um material emprestado
     $('.devolver').click(function(e) {
@@ -77,7 +102,6 @@
                 if(e == 1)
                 {
                     msg_sucesso('O material foi devolvido');
-                    setar_data();
                     buscar();
                 }
                 else
@@ -86,5 +110,54 @@
                 }
             });
         }
+    });
+    
+    /**
+     * Função desenvolvida para editar uma locação
+     * 
+     * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+     */
+    $('.editar').click(function(e) {
+        e.preventDefault();
+        
+        acao    = $(this).data('acao');
+        id      = $(this).data('id');
+        href    = $(this).data('href');
+        
+        $.post(href, {acao: acao, id: id}, function(e) {
+            $('#campos').html(e);
+        });
+        
+        $('#ed_emprestimo').modal('show');
+    });
+
+    /**
+     * Função desenvolvida para salvar a edição
+     *
+     * @author  :   Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+     */
+    $('#salvar_ed_emprestimo').submit(function(e) {
+        e.preventDefault();
+
+        dados = $(this).serialize();
+
+        $.ajax({
+            url: '<?php echo app_baseurl().'materiais_esportivos/salvar_edicao'?>',
+            type: 'POST',
+            data: dados,
+            daType: 'html',
+            success: function(e) {
+                if(e == 1)
+                {
+                    msg_sucesso('Dados Atualizados');
+                    buscar();
+                    $('#ed_emprestimo').modal('hide');
+                }
+                else
+                {
+                    msg_erro('Não foi possível atualizar');
+                }
+            }
+        });
     });
 </script>

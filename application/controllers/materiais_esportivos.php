@@ -19,8 +19,8 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.1.0
-     * @since       27/11/2014
+     * @version     v1.3.0
+     * @since       03/12/2014
      */
     class Materiais_esportivos extends MY_Controller
     {
@@ -173,7 +173,7 @@
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
-         * @since       v1.1.0 - 27/11/2014
+         * @since       v1.2.0 - 28/11/2014
          * @return      mixed Retorna um tipo diferente, dependendo da ação do 
          *              usuário
          */
@@ -187,11 +187,38 @@
                 case 'devolver':
                     $dados = array('status' => 0);
                     echo $this->m_materiais_esportivos->update($id, $dados);
+                case 'editar':
+                    $this->dados['emprestimo'] = $this->m_materiais_esportivos->buscar_by_id($id);
+                    $this->load->view('paginas/ajax/editar/material_esportivo/material_esportivo', $this->dados);
                     break;
                 default :
-                    echo "Não implementado";
+                    echo "Comando não implementado";
                     break;
             }
+        }
+        //**********************************************************************
+        
+        /**
+         * salvar_edicao()
+         * 
+         * Função desenvolvida para salvar uma edição no empréstimo de materiais
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.3.0 - 03/12/2014
+         * @return      bool Retorna TRUE se atualizar e FALSE se não atualizar
+         */
+        function salvar_edicao()
+        {
+            $id = $this->input->post('id');
+            
+            $emprestimo = array(
+                'nome_tomador'          => mysql_real_escape_string($this->input->post('e_nome_tomador')),
+                'localizacao_tomador'   => mysql_real_escape_string($this->input->post('e_localizacao_tomador')),
+                'id_item_esportivo'     => mysql_real_escape_string($this->input->post('e_id_item_esportivo')),
+            );
+            
+            echo $this->m_materiais_esportivos->update($id, $emprestimo);
         }
         //**********************************************************************
     }
