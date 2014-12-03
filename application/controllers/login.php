@@ -87,6 +87,7 @@
         {
             setcookie('nome_usuario');
             setcookie('user_pass');
+            setcookie('user_identifier');
             setcookie('login');
             
             unset($_SESSION['permissoes']);
@@ -110,11 +111,16 @@
         {
             $senha          = $this->input->post('senha');
             $senha_salva    = $_COOKIE['user_pass'];
+            $id_usuario     = base64_decode($_COOKIE['user_identifier']);
             
             if(password_verify($senha, $senha_salva))
             {
                 echo TRUE;
                 setcookie('login', TRUE, time()+3600);
+                
+                // Chama a library para atualizar as permissões do usuário
+                $this->load->library('login_library');
+                $this->login_library->buscar_permissao($id_usuario);
             }
             else
             {

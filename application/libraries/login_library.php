@@ -69,6 +69,7 @@
                     // Seta os Cookies com os dados do usuário
                     setcookie('nome_usuario', $nome_usuario);
                     setcookie('user_pass', $senha_salva);
+                    setcookie('user_identifier', base64_encode($id_usuario));
                     setcookie('login', TRUE, (time() + 3600));
                     
                     // Seta a seção com as permissões do usuário
@@ -99,12 +100,12 @@
          * usuário
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-         * @access      Private
+         * @access      Public
          * @since       v1.1.0 - 24/11/2014
          * @param       int $id Recebe o ID do usuário logado
          * 
          */
-        private function buscar_permissao($id)
+        function buscar_permissao($id)
         {
             $permissoes =  $this->usuarios->buscar_permissoes($id);
             
