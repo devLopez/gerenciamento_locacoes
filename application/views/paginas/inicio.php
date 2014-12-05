@@ -68,7 +68,7 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="index.php?/opcoes/cadastros/barracas">
                                     <i class="fa fa-lg fa-fw fa-home"></i> Barracas 
                                 </a>
                             </li>

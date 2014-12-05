@@ -91,6 +91,7 @@
                                     </label>
                                     <label class="select">
                                         <select class="form-control" name="id_item_esportivo" id="id_item_esportivo" required></select>
+                                        <i></i>
                                     </label>
                                 </div>
                             </section>
