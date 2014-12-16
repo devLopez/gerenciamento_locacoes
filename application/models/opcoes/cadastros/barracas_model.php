@@ -7,7 +7,7 @@
      *  
      *  @package    SGL
      *  @author     Masterkey Informática
-     *  @copyright	Copyright (c) 2010 - 2014, Masterkey Informática LTDA
+     *  @copyright  Copyright (c) 2010 - 2014, Masterkey Informática LTDA
      */
 
     /**
@@ -20,8 +20,8 @@
      * @subpackage  Cadastros
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.1.0
-     * @since       05/12/2014
+     * @version     v1.2.0
+     * @since       16/12/2014
      */
     class Barracas_model extends MY_Model
     {
@@ -59,7 +59,7 @@
             $this->BD->from('barracas, valores');
             $this->BD->order_by('nome_barraca');
             
-            $where = ('barracas.id_valor = valores.id');
+            $where = ('barracas.id_valor = valores.id AND status = 1');
             $this->BD->where($where);
             
             return $this->BD->get()->result();
@@ -83,6 +83,29 @@
             
             return parent::salvar();
         }
+        //**********************************************************************
+        
+        /**
+         * update()
+         * 
+         * Função desenvolvida para realizar atualizações no banco de dados
+         * 
+         * @author      Matheus Lopes Santos
+         * @access      Public
+         * @since       v1.2.0
+         * @param       int     $id     Recebe o ID do registro a ser atualizado
+         * @param       array   $dados  Recebe os dados a serem atualizados
+         * @return      bool Retorna TRUE se atualizar e FALSE se não atualizar
+         */
+        function update($id, $dados)
+        {
+            $this->_data = $dados;
+            
+            $this->BD->where('id', $id);
+            
+            return parent::update();
+        }
+        //**********************************************************************
     }
     /** End of File barracas_model.php **/
     /** Location ./application/models/opcoes/cadastros/barracas_model.php **/

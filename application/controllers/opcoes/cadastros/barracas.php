@@ -21,8 +21,8 @@
      * @subpackage  Cadastros
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       03/12/2014
+     * @version     v1.1.0
+     * @since       16/12/2014
      */
     class Barracas extends MY_Controller
     {
@@ -144,6 +144,25 @@
             echo $this->m_barracas->salvar($barraca);
         }
         //**********************************************************************
+        
+        /**
+         * excluir_barraca()
+         * 
+         * Função desenvolvida para excluir as barracas cadastradas no sistema
+         * 
+         * @author      Matheus Lopes Santos
+         * @access      Public
+         * @since       v1.1.0 - 16/12/2014
+         * @return      bool Retorna TRUE se excluir e FALSE se não excluir
+         */
+        function excluir_barracas()
+        {
+            $id = $this->input->post('id');
+            
+            $dados = array('status' => 0);
+                       
+            echo $this->m_barracas->update($id, $dados);
+        }
     }
     /** End of File barracas.php **/
     /** Location ./application/controllers/opcoes/cadastros/barracas.php **/
