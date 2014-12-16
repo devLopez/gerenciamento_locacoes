@@ -84,7 +84,10 @@
          */
         function buscar_barracas()
         {
+            // Recebe os dados do BD
             $this->dados['barracas'] = $this->m_barracas->buscar();
+            
+            //Carrega a view
             $this->load->view('paginas/ajax/buscas/opcoes/cadastros/barracas', $this->dados);
         }
         //**********************************************************************

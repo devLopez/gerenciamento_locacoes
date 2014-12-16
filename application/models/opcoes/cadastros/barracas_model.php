@@ -57,6 +57,7 @@
         {
             $this->BD->select('barracas.id, nome_barraca, valores.valor_diaria');
             $this->BD->from('barracas, valores');
+            $this->BD->order_by('nome_barraca');
             
             $where = ('barracas.id_valor = valores.id');
             $this->BD->where($where);

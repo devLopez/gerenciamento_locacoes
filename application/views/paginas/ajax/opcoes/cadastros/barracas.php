@@ -13,7 +13,9 @@
 
 <!-- Local onde as barracas cadastradas serão mostradas -->
 <div class="row">
-    <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="barracas_cadastradas"></div>
+    <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12" id="show_barracas">
+        
+    </div>
 </div>
 <!--*************************************************************************-->
 
@@ -105,13 +107,18 @@
     </div>
 </div>
 <!--*************************************************************************-->
-
+<script type="text/javascript" src="./js/plugin/dataTables/jquery.dataTables.min.js"></script>
+<script src="./js/plugin/dataTables/dataTables.bootstrap.js"></script>
+<link rel="stylesheet" href="./js/plugin/dataTables/css/dataTables.bootstrap.css">
 <script>
     // Função que busca o Script de máscara monetária
     loadScript('js/plugin/maskMoney/jquery.maskMoney.min.js', mascarar_valor);
     
     // Chama a função que busca as barracas cadastradas
     buscar();
+    
+    // Inicia o Datatable na tabela
+    $.fn.dataTable.ext.errMode = 'throw';
     
     // Função que busca os valores cadastrados
     buscar_combo();
@@ -122,7 +129,8 @@
     function buscar()
     {
         url = '<?php echo app_baseurl().'opcoes/cadastros/barracas/buscar_barracas'?>';
-        get_data(url, $('#barracas_cadastradas'));
+        
+        get_data(url, $('#show_barracas'));
     }
     
     /**
