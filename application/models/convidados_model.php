@@ -111,7 +111,7 @@
             if ($resposta)
             {
                 $logs = array(
-                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'usuario'   => $this->session->userdata('nome_usuario'),
                     'operacao'  => 'exclusão [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
                 );
                 
@@ -146,7 +146,7 @@
             if($resposta)
             {
                 $logs = array(
-                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'usuario'   => $this->session->userdata('nome_usuario'),
                     'operacao'  => 'Update [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
                 );
                 

@@ -55,37 +55,31 @@
         {
             $usuarios = $this->usuarios->usuarios_login($dados);
             
-            if($usuarios)
-            {
-                foreach ($usuarios as $row)
-                {
+            if($usuarios) {
+                foreach ($usuarios as $row) {
                     $senha_salva    = $row->senha;
                     $nome_usuario   = $row->nome_completo;
                     $id_usuario     = $row->id;
                 }
                 
-                if(password_verify($dados['senha'], $senha_salva))
-                {
-                    // Seta os Cookies com os dados do usuário
-                    setcookie('nome_usuario', $nome_usuario, 0, "/");
-                    setcookie('user_pass', $senha_salva,  0, "/");
-                    setcookie('user_identifier', base64_encode($id_usuario),  0, "/");
-                    setcookie('login', TRUE, (time() + 3600), "/");
+                if(password_verify($dados['senha'], $senha_salva)) {
+                    $login = array(
+                        'nome_usuario'      => $nome_usuario,
+                        'user_pass'         => $senha_salva,
+                        'user_identifier'   => base64_encode($id_usuario),
+                        'login'             => 1,
+                        'permissoes'        => $this->buscar_permissao($id_usuario)
+                    );
                     
-                    // Seta a seção com as permissões do usuário
-                    $_SESSION['permissoes'] = $this->buscar_permissao($id_usuario);
+                    $this->session->set_userdata($login);
                     
                     // Seta as mensagens de erro ou sucesso
                     $resposta['sucesso']    = TRUE;
                     $resposta['erro']       = '';
-                }
-                else
-                {
+                } else {
                     $resposta['erro'] = 'Senha Incorreta';
                 }
-            }
-            else
-            {
+            } else {
                 $resposta['erro'] = 'Não foi encontrado usuário com este nome';
             }
             
@@ -111,8 +105,7 @@
             
             $i = 0;
             
-            foreach ($permissoes as $row)
-            {
+            foreach ($permissoes as $row) {
                 $permissao[$i] = $row->nome_grupo;
                 $i++;
             }
@@ -136,28 +129,20 @@
          */
         function verifica_permissao($permissao_necessaria)
         {
-            if(!is_array($permissao_necessaria))
-            {
-                return in_array($permissao_necessaria, $_SESSION['permissoes']);
-            }
-            else
-            {
+            if(!is_array($permissao_necessaria)) {
+                return in_array($permissao_necessaria, $this->session->userdata('permissoes'));
+            } else {
                 $conta_permissoes = 0;
                 
-                foreach ($permissao_necessaria as $permissao)
-                {
-                    if(in_array($permissao, $_SESSION['permissoes']))
-                    {
+                foreach ($permissao_necessaria as $permissao) {
+                    if(in_array($permissao, $this->session->userdata('permissoes'))) {
                         $conta_permissoes =+ 1;
                     }
                 }
                 
-                if($conta_permissoes > 0)
-                {
+                if($conta_permissoes > 0) {
                     return TRUE;
-                }
-                else
-                {
+                } else {
                     return FALSE;
                 }
             }

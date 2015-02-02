@@ -20,7 +20,7 @@
         <ul id="mobile-profile-img" class="header-dropdown-list padding-5">
             <li class="">
                 <a href="#" class="no-margin">
-                    Olá <span id="nome_usuario"><?php echo $_COOKIE['nome_usuario']; ?></span>
+                    Olá <span id="nome_usuario"><?php echo $this->session->userdata('nome_usuario'); ?></span>
                 </a>
             </li>
         </ul>

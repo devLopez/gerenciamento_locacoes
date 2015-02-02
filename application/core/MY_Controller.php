@@ -120,11 +120,9 @@
          */
         private function verifica_login($requer_autenticacao)
         {
-            if($requer_autenticacao)
-            {
-                if(!isset($_COOKIE['login']) || !$_COOKIE['login'])
-                {
-                    redirect(app_baseurl().'login');
+            if($requer_autenticacao){
+                if($this->session->userdata('login') != 1) {
+                    redirect(app_baseurl(), 'refresh');
                 }
             }
         }

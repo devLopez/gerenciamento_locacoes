@@ -123,7 +123,7 @@
             {
                 // Cria um novo log do sistema
                 $logs = array(
-                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'usuario'   => $this->session->userdata('nome_usuario'),
                     'operacao'  => 'exclusão [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
                 );
                 parent::salvar_log($logs);
@@ -157,7 +157,7 @@
             if ($resposta) {
                 // Cria um novo Log no sistema
                 $log = array(
-                    'usuario'   => $_COOKIE['nome_usuario'],
+                    'usuario'   => $this->session->userdata('nome_usuario'),
                     'operacao'  => 'alteração [TABELA: ('.$this->_tabela.')][ID REGISTRO: ('.$id.')'
                 );
                 parent::salvar_log($log);
