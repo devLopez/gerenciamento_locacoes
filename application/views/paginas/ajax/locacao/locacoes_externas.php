@@ -20,7 +20,7 @@
 <!-- ./ div -->
 
 <!-- Modal para cadastro de uma nova locação de espaço -->
-<div class="modal fade" id="cad_aluguel" data-backdrop="false" data-keyboard="false">
+<div class="modal fade" id="cad_aluguel" data-backdrop="true" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -59,18 +59,18 @@
                                     <label class="label">
                                         <strong>CPF/ CNPJ</strong>
                                     </label>
-									<span class="input-group">
-									   <label class="input">
+                                    <span class="input-group">
+                                        <label class="input">
                                             <input class="form-control" name="cpf_cnpj" id="cpf_cnpj" type="text" placeholder="CPF/ CNPJ" required data-mask="999.999.999-99">
                                         </label>
                                         <span class="input-group-addon">
                                             <label class="toggle checkbox-toggle">
                                                 <input type="checkbox" id="trocar_mascara" checked="checked">
-    											<i data-swchon-text="CPF" data-swchoff-text="CNPJ"></i>
-    										</label>
-    									</span>
-									</span>
-								</div>
+                                                <i data-swchon-text="CPF" data-swchoff-text="CNPJ"></i>
+                                            </label>
+                                        </span>
+                                    </span>
+                                </div>
                             </section>
                             <section class="col col-6">
                                 <div class="form-group">
@@ -121,7 +121,7 @@
                         </div>
 
                     </fieldset>
-                    
+
                     <footer>
                         <button type="submit" class="btn btn-primary">
                             Adicionar Locação
@@ -146,7 +146,7 @@
 
     // Chama função que habilita funções e eventos para formulário
     runAllForms();
-    
+
     // Atribuição do valor da variável que será utilizada na Paginação
     var offset = 0;
 
@@ -163,40 +163,37 @@
     //**************************************************************************
 
     // Envia os dados do formulario via ajax
-    $('#salvar_aviso').submit(function(e){
+    $('#salvar_aviso').submit(function (e) {
         e.preventDefault();
 
         dados = $('#salvar_aviso').serialize();
 
         $.ajax({
-            url: '<?php echo app_baseurl().'locacao_externa/salvar_locacao'?>',
+            url: '<?php echo app_baseurl() . 'locacao_externa/salvar_locacao' ?>',
             type: 'POST',
             data: dados,
             dataType: 'html',
-            success: function(e)
+            success: function (e)
             {
-                if(e == 1)
-                {
+                if (e == 1) {
                     msg_sucesso('Locação salva');
                     limpar_campos($('#salvar_aviso'));
                     $('#cad_aluguel').modal('hide');
                     buscar();
-                }
-                else
-                {
+                } else {
                     msg_erro('Não foi possível salvar os dados. Tente novamente');
                 }
             }
-        }); 
+        });
     });
     //**************************************************************************
 
     // Evita o evento padrão para que a paginação seja feita com ajax
-    $(document).on("click", ".pagination li a", function(e) {
+    $(document).on("click", ".pagination li a", function (e) {
         e.preventDefault();
-        
+
         href = $(this).attr("href");
-        get_data(href, $('#locacoes_cadastradas'));
+        loadURL(href, $('#locacoes_cadastradas'));
     });
     //**************************************************************************
 
@@ -210,23 +207,22 @@
      */
     function buscar()
     {
-        url = '<?php echo app_baseurl().'locacao_externa/buscar/'?>' + offset;
-        get_data(url, $('#locacoes_cadastradas'));
+        url = '<?php echo app_baseurl() . 'locacao_externa/buscar/' ?>' + offset;
+        loadURL(url, $('#locacoes_cadastradas'));
     }
     //**************************************************************************
 
     /** Função desenvolvida para mudar a máscara do cpf/cnpj **/
-    $('#trocar_mascara').click(function() {
+    $('#trocar_mascara').click(function () {
         if ($(this).prop('checked') == true) {
-        	mascarar('999.999.999-99');
+            mascarar('999.999.999-99');
         } else {
-        	mascarar('99.999.999/9999-99');
+            mascarar('99.999.999/9999-99');
         }
     });
     //**************************************************************************
 
-    function mascarar(mascara)
-    {
-    	$('#cpf_cnpj').mask(mascara, {placeholder: '*'}).focus();
+    function mascarar(mascara) {
+        $('#cpf_cnpj').mask(mascara, {placeholder: '*'}).focus();
     }
 </script>

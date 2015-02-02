@@ -14,7 +14,7 @@
     else
     {
         ?>
-        <table class="table table-responsive table-hover table-condensed">
+        <table class="table table-responsive table-hover table-condensed" id="table-convidados-cadastrados">
             <thead>
                 <tr>
                     <th>Nome Completo</th>
@@ -77,6 +77,28 @@
 <!--*****************************************************************-->
 
 <script type="text/javascript">
+    // Definições para inicialização do dataTables
+    var pagefunction = function () {
+        $('#table-convidados-cadastrados').dataTable({
+            "sDom": "<'dt-toolbar'<'col-xs-6 col-sm-6'f><'col-sm-6 col-xs-6'l>r>" +
+                "t" +
+                "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+            "autoWidth": true,
+            "responsive": true,
+            "language": {
+                url: "./js/plugin/dataTables/pt-br.json"
+            }
+        });
+    };
+
+    // Carregamento dos plugins necessários
+    loadScript("./js/plugin/dataTables/jquery.dataTables.min.js", function () {
+        loadScript("./js/plugin/dataTables/tableTools/js/dataTables.tableTools.min.js", function () {
+            loadScript("./js/plugin/dataTables/dataTables.bootstrap.js", function () {
+                loadScript("./js/plugin/dataTables/responsive/dataTables.responsive.js", pagefunction)
+            });
+        });
+    });
     //Exclui um convidado da lista
     $('.excluir').click(function(e) {
         e.preventDefault();
@@ -110,9 +132,7 @@
                         }
                     }
                 });
-            }
-            else
-            {
+            } else {
                 return false;
             }
         });
@@ -139,14 +159,11 @@
         dados = $(this).serialize();
 
         $.post('<?php echo app_baseurl().'locacao_externa/atualizar_convidado'?>', dados, function(e){
-            if(e == 1)
-            {
+            if(e == 1) {
                 msg_sucesso('Dados atualizados');
                 $('#edit_convidado').modal('hide');
                 buscar();
-            }
-            else
-            {
+            } else {
                 msg_erro('Não foi possível atualizar');
                 return false;
             }
