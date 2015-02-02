@@ -24,9 +24,9 @@
 
     </head>
     <body class="smart-style-2 menu-on-top">
-        <!-- Exibe o progresso das requisições ajax -->
+        <!-- Exibe o progresso das requisições ajax 
         <div class="carregando"></div>
-        <div class="carregando-backdrop"></div>
+        <div class="carregando-backdrop"></div>-->
         
         <?php $this->load->view('paginas/' . $view); ?>
         
@@ -48,8 +48,6 @@
         <script src="js/libs/jquery.js"></script>
         <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
 
-        <!-- IMPORTANT: APP CONFIG -->
-        <script src="js/app.config.js"></script>
 
         <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
         <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
@@ -85,9 +83,6 @@
         <!-- MAIN APP JS FILE -->
         <script src="js/app.min.js"></script>
 
-        <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
-        <!-- Voice command : plugin -->
-        <script src="./js/speech/voicecommand.min.js"></script>
         
         <!-- BlockUI -->
         <script src="./js/blockUi/blockUI.js"></script>

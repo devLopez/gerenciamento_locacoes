@@ -23,7 +23,7 @@
          */
         function app_baseurl()
         {
-            return base_url().'index.php?/';
+            return base_url();//.'index.php?/';
         }
     }
     /** End of File appbaseurl_helper.php **/

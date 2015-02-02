@@ -138,10 +138,24 @@
      * 
      * Função desenvolvida para buscar os valores cadastrados
      */
-    function buscar_combo()
+    function buscar_combo(option)
     {
         url = '<?php echo app_baseurl().'opcoes/cadastros/barracas/preenche_combo'?>';
-        get_data(url, $('#id_valor'));
+        
+        if(option == undefined) {
+            get_data(url, $('#id_valor'));
+        } else if(option == 'editar') {
+            $.get(url, function(e) {
+                $('#ed_id_valor').html(e);
+            }).done(function(){
+                $('#ed_id_valor').find('option').each(function(){
+                    if($(this).val() == $('#ed_id_valor').data('id_valor'))
+                    {
+                        $(this).prop('selected', true);
+                    }
+                })
+            });
+        }
     }
     
     /**
@@ -188,7 +202,7 @@
             dataType: 'html',
             success: function (e) {
                 if(e == 1)
-                {id_valor
+                {
                     msg_sucesso('Novo valor cadastrado');
                     limpar_campos($('#cad_valor'));
                     $('#new_valor').modal('hide');

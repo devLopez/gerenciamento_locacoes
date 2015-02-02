@@ -20,8 +20,8 @@
      * @subpackage  Cadastros
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.2.0
-     * @since       16/12/2014
+     * @version     v1.2.1
+     * @since       17/12/2014
      */
     class Barracas_model extends MY_Model
     {
@@ -50,16 +50,24 @@
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
-         * @since       v1.0.0 - 03/12/2014
+         * @since       v1.2.1 - 17/12/2014
          * @return      array Retorna as barracas cadastradas no sistema
          */
-        function buscar()
+        function buscar($id = NULL)
         {
-            $this->BD->select('barracas.id, nome_barraca, valores.valor_diaria');
+            if($id != NULL)
+            {
+                $where = ('barracas.id = '.$id.' and barracas.id_valor = valores.id AND status = 1');
+            }
+            else
+            {
+                $where = ('barracas.id_valor = valores.id AND status = 1');
+            }
+            
+            $this->BD->select('barracas.id, nome_barraca, valores.valor_diaria, valores.id as id_valores');
             $this->BD->from('barracas, valores');
             $this->BD->order_by('nome_barraca');
-            
-            $where = ('barracas.id_valor = valores.id AND status = 1');
+
             $this->BD->where($where);
             
             return $this->BD->get()->result();

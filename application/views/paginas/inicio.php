@@ -6,24 +6,24 @@
         </span>
     </div>
     <div class="pull-right">
-    	<!-- Botão Para Esconder/ Mostrar Menu -->
-		<div id="hide-menu" class="btn-header pull-right">
-			<span>
-				<a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu">
-				    <i class="fa fa-align-justify"></i>
-				</a>
-			</span>
-		</div>
-		<!--*****************************************************************-->
-        
+        <!-- Botão Para Esconder/ Mostrar Menu -->
+        <div id="hide-menu" class="btn-header pull-right">
+            <span>
+                <a href="javascript:void(0);" data-action="toggleMenu" title="Collapse Menu">
+                    <i class="fa fa-align-justify"></i>
+                </a>
+            </span>
+        </div>
+        <!--*****************************************************************-->
+
         <!-- Exibe o nome e a foto do associado -->
-		<ul id="mobile-profile-img" class="header-dropdown-list padding-5">
-			<li class="">
-				<a href="#" class="no-margin">
-					Olá <span id="nome_usuario"><?php echo $_COOKIE['nome_usuario']; ?></span>
-				</a>
-			</li>
-		</ul>
+        <ul id="mobile-profile-img" class="header-dropdown-list padding-5">
+            <li class="">
+                <a href="#" class="no-margin">
+                    Olá <span id="nome_usuario"><?php echo $_COOKIE['nome_usuario']; ?></span>
+                </a>
+            </li>
+        </ul>
     </div>
 </header>
 <!--*************************************************************************-->
@@ -33,25 +33,25 @@
     <nav>
         <ul>
             <li>
-                <a href="index.php?/inicio/home">
+                <a href="inicio/home">
                     <i class="fa fa-lg fa-fw fa-home"></i>
                     <span>Início</span>
                 </a>
             </li>
             <li>
-                <a href="index.php?/locacao_externa">
+                <a href="locacao_externa">
                     <i class="fa fa-lg fa-fw fa-code-fork"></i> 
                     <span>Locações Externas</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="locacao_barracas">
                     <i class="fa fa-lg fa-fw fa-home"></i> 
                     <span>Locação de Barracas</span>
                 </a>
             </li>
             <li>
-                <a href="index.php?/materiais_esportivos">
+                <a href="materiais_esportivos">
                     <i class="fa fa-lg fa-fw fa-dribbble"></i> 
                     <span>Materiais Esportivos</span>
                 </a>
@@ -68,7 +68,7 @@
                         </a>
                         <ul>
                             <li>
-                                <a href="index.php?/opcoes/cadastros/barracas">
+                                <a href="opcoes/cadastros/barracas">
                                     <i class="fa fa-lg fa-fw fa-home"></i> Barracas 
                                 </a>
                             </li>
@@ -126,9 +126,9 @@
     <!-- #MAIN CONTENT (As páginas serão inseridas aqui via ajax) -->
     <div id="content"></div>
     <!--************************************************************-->
-    
+
     <!-- Tela de bloqueio -->
-    <div id="tela-bloqueio"></div>
+    <!--<div id="tela-bloqueio"></div>-->
     <!--*********************************************************************-->
 
 </div>

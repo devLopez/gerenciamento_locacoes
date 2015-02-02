@@ -45,6 +45,31 @@
     }
 ?>
 
+<!-- Modal onde a barraca será inserida -->
+<div class="modal fade" id="edit_barraca" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <img src="./img/reservado/logo.png" width="150" alt="Clube Campestre Pentáurea">
+                </h4>
+            </div>
+            <div class="modal-body no-padding">
+                <form id="ed_barraca" class="smart-form">
+                    <fieldset id="dom_edita_barraca">
+                        
+                    </fieldset>
+                    <footer>
+                        <button class="btn btn-primary" type="submit">Atualizar barraca</button>
+                        <a class="btn btn-default" data-dismiss="modal" onclick="limpar_campos($('#cad_barraca'))">Fechar esta Janela</a>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--*************************************************************************-->
+
 <script>
     // Inicia o Plugin DataTable
     $('#barracas_cadastradas').dataTable({
@@ -62,8 +87,7 @@
         var acao    = $(this).data('acao');
         var id      = $(this).data('id');
         
-        if(acao == 'excluir')
-        {
+        if(acao == 'excluir') {
             if(confirm('Deseja realmente excluir?'))
             {
                 $.ajax({
@@ -84,6 +108,12 @@
                     }
                 });
             }
+        } else if (acao == 'alterar') {
+            url_alterar = '<?php echo app_baseurl().'opcoes/cadastros/barracas/buscar_barracas/'?>'+id;
+            
+            $('#edit_barraca').modal('show');
+            
+            get_data(url_alterar, $('#dom_edita_barraca'));
         }
     });
 </script>

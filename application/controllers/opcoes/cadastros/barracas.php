@@ -21,8 +21,8 @@
      * @subpackage  Cadastros
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.1.0
-     * @since       16/12/2014
+     * @version     v1.2.0
+     * @since       17/12/2014
      */
     class Barracas extends MY_Controller
     {
@@ -80,15 +80,26 @@
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
-         * @since       v1.0.0 - 03/12/2014
+         * @since       v1.2.0 - 17/12/2014
          */
-        function buscar_barracas()
+        function buscar_barracas($id = NULL)
         {
-            // Recebe os dados do BD
-            $this->dados['barracas'] = $this->m_barracas->buscar();
+            if($id != NULL)
+            {
+                // Recebe os dados do BD
+                $this->dados['barraca'] = $this->m_barracas->buscar($id);
+                
+                //Carrega a view
+                $this->load->view('paginas/ajax/editar/opcoes/cadastros/barracas', $this->dados);
+            }
+            else
+            {
+                // Recebe os dados do BD
+                $this->dados['barracas'] = $this->m_barracas->buscar();
             
-            //Carrega a view
-            $this->load->view('paginas/ajax/buscas/opcoes/cadastros/barracas', $this->dados);
+                //Carrega a view
+                $this->load->view('paginas/ajax/buscas/opcoes/cadastros/barracas', $this->dados);
+            }
         }
         //**********************************************************************
         
@@ -163,6 +174,7 @@
                        
             echo $this->m_barracas->update($id, $dados);
         }
+        //**********************************************************************
     }
     /** End of File barracas.php **/
     /** Location ./application/controllers/opcoes/cadastros/barracas.php **/

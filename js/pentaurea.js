@@ -12,7 +12,7 @@ var container_global	= '';
  * Função que irá previnir que o menu use o elemento padrão, para que as urls 
  * do menu possam ser carregadas via ajax
  */
-$('nav a[href!="#"]:not(#logoff)').click(function(e){
+/*$('nav a[href!="#"]:not(#logoff)').click(function(e){
     e.preventDefault();
     
     href = $(this).attr('href');
@@ -21,11 +21,11 @@ $('nav a[href!="#"]:not(#logoff)').click(function(e){
 //******************************************************************************
 
 /** Função que recebe atributo href do primeiro link do menu **/
-var inicio = $('nav > ul > li:first-child > a[href!="#"]').attr('href');
+//var inicio = $('nav > ul > li:first-child > a[href!="#"]').attr('href');
 //******************************************************************************
 
 /** Chamada da função loadAjax() **/
-loadAjax(inicio);
+//loadAjax(inicio);
 //******************************************************************************
 
 /**
@@ -37,47 +37,47 @@ loadAjax(inicio);
  * @param       {string} url Contém a URL que será carregada
  * @param       {string} container Contém o elemento que receberá a resposta ajax
  */
-function loadAjax(url, container)
+/*function loadAjax(url, container)
 {
-	url_global 		= url;
-	container_global	= container;
+    url_global 		= url;
+    container_global	= container;
 	
-	if (logado() == true)
-	{
-            /** Remove qualquer classe ativa no menu **/
-	    $("nav li.active").removeClass("active");
+    if (logado() == true)
+    {
+        /** Remove qualquer classe ativa no menu **/
+    //    $("nav li.active").removeClass("active");
 	    
-	    /**
-	     * Procura no menu um elemento quee contenha a url que foi passada para setar
-	     * o elemento como active, podendo assim, desenhar o breadCrumb
-	     */
-	    $('nav li:has(a[href="'+url+'"])').addClass("active");
+	/**
+	 * Procura no menu um elemento quee contenha a url que foi passada para setar
+	 * o elemento como active, podendo assim, desenhar o breadCrumb
+	 */
+	//$('nav li:has(a[href="'+url+'"])').addClass("active");
             
-            // Recebe o texto que está no menú
-            titulo = $('nav li:has(a[href="'+url+'"])').text();
+        // Recebe o texto que está no menú
+    //    titulo = $('nav li:has(a[href="'+url+'"])').text();
 	    
-	    if(container == undefined)
-	    {
-	        container = $("#content:not(.container)");
-	    }
+	//if(container == undefined)
+	//{
+    //        container = $("#content:not(.container)");
+	//}
 
-	    $.get(url, function(e) {
-                /**
-                 * Insere na barra de endereço a url que está sendo solicitada,
-                 * além de inserir os dados no hitórico do browser.
-                 * 
-                 * @author  :   Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-                 * @see     :   http://www.igorescobar.com/blog/2012/05/05/mudando-a-barra-de-endereco-do-browser-sem-refresh/
-                 */
-                window.history.pushState('Object',titulo, url);
+	//$.get(url, function(e) {
+            /**
+             * Insere na barra de endereço a url que está sendo solicitada,
+             * além de inserir os dados no hitórico do browser.
+             * 
+             * @author  :   Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+             * @see     :   http://www.igorescobar.com/blog/2012/05/05/mudando-a-barra-de-endereco-do-browser-sem-refresh/
+             */
+            //window.history.pushState('Object',titulo, url);
                 
-	        container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
-	        drawBreadCrumb();
-	    }).fail(function() {
-	        container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
-	    });
-	}
-}
+	/*    container.css({opacity: "0.0"}).html(e).delay(50).animate({opacity: "1.0"}, 300);
+	    drawBreadCrumb();
+	}).fail(function() {
+            container.html('<h4 class="ajax-loading-error"><i class="fa fa-warning txt-color-orangeDark"></i> Erro 404! Página ou recurso não encontrado.</h4>');
+        });
+    }
+}*/
 //******************************************************************************
 
 /**

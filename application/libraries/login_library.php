@@ -67,10 +67,10 @@
                 if(password_verify($dados['senha'], $senha_salva))
                 {
                     // Seta os Cookies com os dados do usuário
-                    setcookie('nome_usuario', $nome_usuario);
-                    setcookie('user_pass', $senha_salva);
-                    setcookie('user_identifier', base64_encode($id_usuario));
-                    setcookie('login', TRUE, (time() + 3600));
+                    setcookie('nome_usuario', $nome_usuario, 0, "/");
+                    setcookie('user_pass', $senha_salva,  0, "/");
+                    setcookie('user_identifier', base64_encode($id_usuario),  0, "/");
+                    setcookie('login', TRUE, (time() + 3600), "/");
                     
                     // Seta a seção com as permissões do usuário
                     $_SESSION['permissoes'] = $this->buscar_permissao($id_usuario);

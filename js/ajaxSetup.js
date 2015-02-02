@@ -9,42 +9,32 @@
  */
 /** Configurações utilizadas no ajax **/
 $(document).ajaxStart(function() {
-	show_loading();
+    $.blockUI({
+        message: 'Processando pedido...',
+        css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px',
+            'border-radius': '10px',
+            opacity: .5, 
+            color: '#fff' 
+        }
+    });
 });
 
 $(document).ajaxComplete(function() {
-    hide_loading();
+    $.unblockUI();
 });
 
 $.ajaxSetup({
-    error: function() {
-        msg_erro('Ocorreu um erro. Tente novamente');
+    error: function(xhr, textStatus) {
+        if(xhr.status == 404) {
+            msg_erro(textStatus);
+        } else if(xhr.status == 500){
+            msg_erro(textStatus);
+        }
     }
 });
-//******************************************************************************
-
-/**
- * show_loading()
- * 
- * Função desenvolvida para exibir o elemento Loading
- * 
- * @author	:	Matheus Lopes Santos <fale_com_lopez@hotmail.com>
- */
-function show_loading()
-{
-    $('.carregando, .carregando-backdrop').fadeIn('fast');
-}
-//******************************************************************************
-
-/**
- * hide_loading()
- * 
- * Função desenvolvida para esconder o elemento Loading
- * 
- * @author	:	Matheus Lopes Santos <fale_com_lopez@hotmail.com>
- */
-function hide_loading()
-{
-    $('.carregando, .carregando-backdrop').fadeOut('slow');
-}
 //******************************************************************************
