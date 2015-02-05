@@ -175,10 +175,10 @@
     }
 
     /**
-     * buscar()
+     * buscar()2
      * 
      * Função desenvolvida para buscar o material esportivo
-     * 
+     * 22
      * @author  :   Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      */
     function buscar()
@@ -186,9 +186,9 @@
         data_inicial    = $('#data_inicial').val();
         data_final      = $('#data_final').val();
 
-        url = '<?php echo app_baseurl().'materiais_esportivos/buscar/'?>'+ offset + '/' + data_inicial + '/' + data_final;
+        url = 'materiais_esportivos/buscar/'+ offset + '/' + data_inicial + '/' + data_final;
 
-        get_data(url, $('#emprestimos_materiais_feitos'));
+        loadURL(url, $('#emprestimos_materiais_feitos'));
     }
     
     /**
@@ -200,8 +200,7 @@
      */
     function buscar_materiais() {
         $.get('<?php echo app_baseurl().'materiais_esportivos/combo_materiais_esportivos'?>', function(e) {
-            if(e)
-            {
+            if(e) {
                 $('#id_item_esportivo').html(e);
             }
         });
@@ -223,13 +222,15 @@
             data: dados,
             dataType: 'html',
             success: function(e) {
-                e == 0 ? 
-                    msg_erro('Não foi possível salvar. Tente Novamente') : 
-                        msg_sucesso('Salvo com sucesso'), 
-                        setar_data(), 
-                        buscar(), 
-                        $('#cad_emprestimo').modal('hide'), 
-                        limpar_campos($('#salvar_emprestimo'));
+                if(e == 0) {
+                    msg_erro('Não foi possível salvar. Tente Novamente')
+                } else {
+                    msg_sucesso('Salvo com sucesso'), 
+                    setar_data(), 
+                    buscar(), 
+                    $('#cad_emprestimo').modal('hide'), 
+                    limpar_campos($('#salvar_emprestimo'));
+                }
             }
         });
     });

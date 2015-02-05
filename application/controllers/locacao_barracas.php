@@ -19,8 +19,8 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v0.2.0.0
-     * @since       09/01/2015
+     * @version     v0.2.1.0
+     * @since       03/02/2015
      */
     class Locacao_barracas extends MY_Controller
     {
@@ -36,6 +36,9 @@
         public function __construct()
         {
             parent::__construct(TRUE);
+            
+            // Carrega o model necessário
+            $this->load->model('periodo_locacao_model', 'locacao');
             
             // Define as permissões de acesso
             $this->_permissao = array('administradores', 'atendimento');
@@ -68,49 +71,67 @@
         //**********************************************************************
         
         /**
-         * combo_ano()
-         * 
-         * Função desenvolvida para formatar os anos disponíveis para buscar os
-         * aluguéis de barracas por período
-         * 
-         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-         * @access      Public
-         * @since       v0.2.0.0 - 09/01/2015
-         * @return      array Retorna um array contendo os anos a partir da 
-         *              constante ANOBUILD 
-         */
-        function combo_ano()
-        {
-            $ano_build          = 2014;
-            $anos['ano_atual']  = date('Y');
-        
-            $diferenca  = $anos['ano_atual'] - $ano_build;
-            $i          = 0;
-            
-            do {
-                $anos['anos'][$i] = $ano_build + $i;
-                
-                $i++;
-            } while ($i == 1);
-            
-            
-            echo json_encode($anos);
-        }
-        //**********************************************************************
-        
-        /**
          * salvar_periodo()
          * 
          * Salva um novo período de locação de barracas no banco de dados
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
-         * @since       v0.2.0.0 - 09/01/2015
+         * @since       v0.2.1.0 - 03/02/2015
          * @return      bool Retorna TRUE se salvar e FALSE se não salvar
          */
-        function salvar_pedido()
+        function salvar_periodo()
+        {            
+            $periodo = array(
+                'periodo_locacao'   => $this->input->post('periodo_locacao', TRUE),
+                'diretor_semana'    => $this->input->post('diretor_semana', TRUE),
+                'mes_locacao'       => nome_mes(),
+                'ano_locacao'       => date('Y')
+            );
+            
+            $resposta = $this->locacao->salvar_periodo($periodo);
+            
+            echo json_encode($resposta);
+        }
+        //**********************************************************************
+        
+        /**
+         * buscar_periodos_cadastrados()
+         * 
+         * Função desenvolvida para buscar os períodos cadastrados no sistema
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v0.2.1.0 - 03/02/2015
+         */
+        function buscar_periodos_cadastrados($mes = NULL, $ano = NULL)
         {
-            $dados['periodo_locacao'] = $this->post('periodo_locacao', TRUE);
+            if (!$mes) {
+                $mes = nome_mes();
+            } elseif ($ano == NULL) {
+                $ano = date('Y');
+            }
+            
+            $this->dados['locacoes'] = $this->locacao->get($mes, $ano);
+            $this->load->view('paginas/ajax/buscas/locacao_barracas/locacoes_realizadas', $this->dados);
+        }
+        //**********************************************************************
+
+        /**
+         * detalhes()
+         *
+         * Realiza a busca dos detalhes de um período de locações cadastrados
+         *
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v2.1.0 - 03/02/2015
+         * @param       int $id Recebe o ID da locação de barracas
+         */
+        function detalhes($id)
+        {
+            $this->dados['locacoes'] = $this->locacao->get(NULL, NULL, $id);
+
+            $this->load->view('paginas/ajax/buscas/locacao_barracas/detalhes', $this->dados);
         }
         //**********************************************************************
     }

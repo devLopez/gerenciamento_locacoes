@@ -18,6 +18,12 @@
         <!-- Estilo personalizado do Pentáurea -->
         <link rel="stylesheet" type="text/css" media="screen" href="./css/pentaurea.css">
 
+        <!-- Icones -->
+        <link rel="stylesheet" type="text/css" media="screen" href="./css/icones.css">
+        
+        <!-- xEditable -->
+        <link rel="stylesheet" type="text/css" media="screen" href="./js/plugin/xeditable/css/bootstrap-editable.css">
+
         <!-- #FAVICONS -->
         <link rel="shortcut icon" href="./img/favicon/icon.png" type="image/png">
         <link rel="icon" href="./img/favicon/icon.png" type="image/png">

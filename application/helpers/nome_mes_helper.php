@@ -19,11 +19,14 @@
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
+         * @param		int $mes Recebe o número correspondente ao mês solicitado
          * @return      string Retorna o nome do Mês em questão
          */
-        function nome_mes()
+        function nome_mes($mes = NULL)
         {
-            $mes = date('m');
+            if(!$mes) {
+                $mes = date('m');
+            }
             
             if ($mes == 01) {
                 return 'Janeiro';

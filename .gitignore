@@ -5,3 +5,6 @@
 
 # Ignora os arquivos do netbeans
 /nbproject/*
+
+# Ignora a pasta do PHPStorm
+.idea/*
