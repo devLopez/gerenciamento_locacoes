@@ -1,7 +1,7 @@
-<div class="well no-padding">
+<div class="well no-padding box-login">
     <form class="smart-form client-form" id="login" type="POST">
         <header class="text-center">
-            Sistema de Gerenciamento de Locações &nbsp; Login
+            <img src="./img/reservado/logo.png" alt="Clube Campestre Pentáurea" width="246" height="52">
         </header>
         <fieldset>
             <section>
@@ -56,13 +56,11 @@
                 dataType: 'json',
                 success: function(e)
                 {
-                    if(e.sucesso == 1 && e.erro == '')
-                    {
+                    if(e.sucesso == 1 && e.erro == '') {
                         location.href = '<?php echo app_baseurl().'inicio'?>';
                     }
                     
-                    if(e.erro)
-                    {
+                    if(e.erro) {
                     	$('#entrar').button('reset');
                         msg_erro(e.erro);
                         return false;

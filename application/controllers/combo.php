@@ -19,8 +19,8 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       03/02/2015
+     * @version     v1.1.0
+     * @since       13/02/2015
      */
     class Combo extends MY_Controller
     {
@@ -96,6 +96,35 @@
             }
             
             echo json_encode($mes);
+        }
+        //**********************************************************************
+        
+        /**
+         * valores()
+         * 
+         * Função desenvolvida para listar os valores cadastrados
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 13/02/2015
+         * @return      array Retorna um array com os valores cadastrados
+         */
+        function valores()
+        {
+            $this->load->model('opcoes/cadastros/valores_model', 'm_valores');
+            
+            $valores = $this->m_valores->buscar();
+            
+            $i = 0;
+            foreach ($valores as $row) {
+                $valor[$i] = array(
+                    'value' => $row->id,
+                    'text'  => "R$$row->valor_diaria"
+                );
+                $i++;
+            }
+
+            echo json_encode($valor);
         }
         //**********************************************************************
     }

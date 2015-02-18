@@ -13,51 +13,61 @@
     else
     {
         ?>
-        <table class="table table-bordered table-hover table-responsive table-condensed">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Localização</th>
-                    <th>Data Empréstimo</th>
-                    <th>Material</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    foreach ($emprestimos as $row)
-                    {
-                        ?>
-                        <tr>
-                            <td><?php echo $row->nome_tomador?></td>
-                            <td><?php echo $row->localizacao_tomador?></td>
-                            <td><?php echo date('d/m/Y H:i:s', strtotime($row->data_emprestimo))?></td>
-                            <td><?php echo $row->item?></td>
-                            <td>
-                                <?php echo ($row->status == 1) ? "<span class='label label-warning'>Emprestado</span>" : "<span class='label label-primary'>Devolvido</span>"; ?>
-                            </td>
-                            <td align="center">
-                                <?php
-                                    if($row->status == 1)
-                                    {
-                                        ?>
-                                        <a class="editar" href="#" rel="tooltip" title="Editar" data-acao="editar" data-id="<?php echo $row->id?>" data-href="<?php echo app_baseurl().'materiais_esportivos/processar_comando'?>">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a class="devolver" href="#" rel="tooltip" title="Devolver" data-acao="devolver" data-id="<?php echo $row->id?>" data-href="<?php echo app_baseurl().'materiais_esportivos/processar_comando'?>">
-                                            <i class="fa fa-level-down"></i>
-                                        </a>
-                                        <?php
-                                    }
-                                ?>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                ?>
-            </tbody>
-        </table>
+        <div class="jarviswidget">
+            <header>
+                <span class="widget-icon"><i class="fa fa-dribbble"></i></span>
+                <h2>Espréstimos realizados</h2>
+            </header>
+            <div>
+                <div class="widget-body no-padding">
+                    <table class="table table-bordered table-hover table-responsive table-condensed" id="table-emprestimos-cadastrados">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Localização</th>
+                                <th>Data Empréstimo</th>
+                                <th>Material</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                foreach ($emprestimos as $row)
+                                {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $row->nome_tomador?></td>
+                                        <td><?php echo $row->localizacao_tomador?></td>
+                                        <td><?php echo date('d/m/Y H:i:s', strtotime($row->data_emprestimo))?></td>
+                                        <td><?php echo $row->item?></td>
+                                        <td>
+                                            <?php echo ($row->status == 1) ? "<span class='label label-warning'>Emprestado</span>" : "<span class='label label-primary'>Devolvido</span>"; ?>
+                                        </td>
+                                        <td align="center">
+                                            <?php
+                                                if($row->status == 1)
+                                                {
+                                                    ?>
+                                                    <a class="editar" href="#" rel="tooltip" title="Editar" data-acao="editar" data-id="<?php echo $row->id?>" data-href="<?php echo app_baseurl().'materiais_esportivos/processar_comando'?>">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="devolver" href="#" rel="tooltip" title="Devolver" data-acao="devolver" data-id="<?php echo $row->id?>" data-href="<?php echo app_baseurl().'materiais_esportivos/processar_comando'?>">
+                                                        <i class="fa fa-level-down"></i>
+                                                    </a>
+                                                    <?php
+                                                }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <?php
     }
 ?>
@@ -88,6 +98,29 @@
 </div>
 
 <script>
+    // Definições para inicialização do dataTables
+    var pagefunction = function () {
+        $('#table-emprestimos-cadastrados').dataTable({
+            "sDom": "<'dt-toolbar'<'col-xs-6 col-sm-6'f><'col-sm-6 col-xs-6'l>r>" +
+            "t" +
+            "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+            "autoWidth": true,
+            "responsive": true,
+            "language": {
+                url: "./js/plugin/dataTables/pt-br.json"
+            }
+        });
+    };
+
+    // Carregamento dos plugins necessários
+    loadScript("./js/plugin/dataTables/jquery.dataTables.min.js", function () {
+        loadScript("./js/plugin/dataTables/tableTools/js/dataTables.tableTools.min.js", function () {
+            loadScript("./js/plugin/dataTables/dataTables.bootstrap.js", function () {
+                loadScript("./js/plugin/dataTables/responsive/dataTables.responsive.js", pagefunction)
+            });
+        });
+    });
+    
     // Funçao desenvolvida para devolver um material emprestado
     $('.devolver').click(function(e) {
         e.preventDefault();

@@ -81,7 +81,12 @@
          * @return      bool Retorna TRUE se salvar e FALSE se não salvar
          */
         function salvar_periodo()
-        {            
+        {
+            $this->load->library('locacao_library');
+            
+            $this->locacao_library->teste();
+            exit();
+            
             $periodo = array(
                 'periodo_locacao'   => $this->input->post('periodo_locacao', TRUE),
                 'diretor_semana'    => $this->input->post('diretor_semana', TRUE),
@@ -90,6 +95,10 @@
             );
             
             $resposta = $this->locacao->salvar_periodo($periodo);
+            
+            if($resposta == TRUE) {                
+                $resposta = $this->locacao_barracas->montar_periodo();
+            }
             
             echo json_encode($resposta);
         }
@@ -124,7 +133,7 @@
          *
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
-         * @since       v2.1.0 - 03/02/2015
+         * @since       v0.2.1.0 - 03/02/2015
          * @param       int $id Recebe o ID da locação de barracas
          */
         function detalhes($id)
@@ -132,6 +141,27 @@
             $this->dados['locacoes'] = $this->locacao->get(NULL, NULL, $id);
 
             $this->load->view('paginas/ajax/buscas/locacao_barracas/detalhes', $this->dados);
+        }
+        //**********************************************************************
+        
+        /**
+         * editar_diretor()
+         * 
+         * Classe desenvolvida para editar o diretor da semana
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v0.2.1.0 - 03/02/2015
+         */
+        function editar_diretor()
+        {
+            $id_periodo = $this->input->post('pk', TRUE);
+            
+            $diretor = array(
+                $this->input->post('name', TRUE)   => $this->input->post('value', TRUE)
+            );
+            
+            echo $this->locacao->update($id_periodo, $diretor);
         }
         //**********************************************************************
     }

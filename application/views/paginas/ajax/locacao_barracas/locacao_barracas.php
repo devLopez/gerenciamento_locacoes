@@ -1,12 +1,12 @@
 <!-- Header da página -->
 <div class="row">
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h1 class="page-title txt-color-blueDark">
+        <h1 class="page-title txt-color-white">
             <i class="fa-fw fa fa-home"></i> Cadastro de Locação de Barracas
         </h1>
     </div>
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <a href="#cad_periodo_locacao" class="btn btn-primary pull-right" data-toggle="modal">Nova Locação</a>
+        <a href="#cad_periodo_locacao" class="btn btn-default pull-right" data-toggle="modal">Nova Locação</a>
     </div>
 </div>
 <!--*************************************************************************-->

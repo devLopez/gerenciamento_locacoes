@@ -1,7 +1,7 @@
 <!-- Header da página -->
 <div class="row">
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h1 class="page-title txt-color-blueDark">
+        <h1 class="page-title txt-color-white">
             <i class="fa-fw fa fa-clipboard"></i> Detalhes da Locação
         </h1>
     </div>
@@ -50,7 +50,7 @@
         <div class="row">
             <!-- Barra lateral onde será exibida os detalhes da locação-->
             <section class="col col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                <div class="jarviswidget jarviswidget-color-darken">
+                <div class="jarviswidget">
                     <header>
                         <span class="widget-icon">
                             <i class="fa fa-clipboard"></i>
@@ -90,7 +90,7 @@
 
             <!-- Local onde irão aparecer os convidados -->
             <section class="col col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <div class="jarviswidget jarviswidget-color-darken">
+                <div class="jarviswidget">
                     <header>
                         <span class="widget-icon">
                             <i class="fa fa-users"></i>

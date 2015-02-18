@@ -11,36 +11,46 @@
     else
     {
         ?>
-        <table class="table table-bordered table-condensed table-responsive table-striped" id="barracas_cadastradas">
-            <thead>
-                <tr>
-                    <th>Nome da Barraca</th>
-                    <th>Valor da diária</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    foreach ($barracas as $row)
-                    {
-                        ?>
-                        <tr>
-                            <td><?php echo $row->nome_barraca?></td>
-                            <td><?php echo $row->valor_diaria?></td>
-                            <td align="center">
-                                <a href="#" class="acao" rel="tooltip" title="Excluir" data-id="<?php echo $row->id?>" data-acao="excluir">
-                                    <i class="fa fa-trash-o"></i>
-                                </a>
-                                <a href="#" class="acao" rel="tooltip" title="Alterar" data-id="<?php echo $row->id?>" data-acao="alterar">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <?php
-                    }
-                ?>
-            </tbody>
-        </table>
+        <div class="jarviswidget">
+            <header role="heading">
+                <span class="widget-icon"><i class="fam-house"></i> </span>
+                <h2>Locações Cadastradas</h2>
+            </header>
+            <div>
+                <div class="widget-body no-padding">
+                    <table class="table table-bordered table-condensed table-responsive" id="table-barracas-cadastradas">
+                        <thead>
+                            <tr>
+                                <th>Nome da Barraca</th>
+                                <th>Valor da diária</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach ($barracas as $row)
+                                {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $row->nome_barraca?></td>
+                                        <td><?php echo $row->valor_diaria?></td>
+                                        <td align="center">
+                                            <a href="#" class="acao" rel="tooltip" title="Excluir" data-id="<?php echo $row->id?>" data-acao="excluir">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                            <a href="#" class="acao" rel="tooltip" title="Alterar" data-id="<?php echo $row->id?>" data-acao="alterar">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <?php
     }
 ?>
@@ -71,11 +81,27 @@
 <!--*************************************************************************-->
 
 <script>
-    // Inicia o Plugin DataTable
-    $('#barracas_cadastradas').dataTable({
-        "language": {
-            url: "./js/plugin/dataTables/pt-br.json"
-        }
+    // Definições para inicialização do dataTables
+    var pagefunction = function () {
+        $('#table-barracas-cadastradas').dataTable({
+            "sDom": "<'dt-toolbar'<'col-xs-6 col-sm-6'f><'col-sm-6 col-xs-6'l>r>" +
+                "t" +
+                "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+            "autoWidth": true,
+            "responsive": true,
+            "language": {
+                url: "./js/plugin/dataTables/pt-br.json"
+            }
+        });
+    };
+
+    // Carregamento dos plugins necessários
+    loadScript("./js/plugin/dataTables/jquery.dataTables.min.js", function () {
+        loadScript("./js/plugin/dataTables/tableTools/js/dataTables.tableTools.min.js", function () {
+            loadScript("./js/plugin/dataTables/dataTables.bootstrap.js", function () {
+                loadScript("./js/plugin/dataTables/responsive/dataTables.responsive.js", pagefunction)
+            });
+        });
     });
     
     /**

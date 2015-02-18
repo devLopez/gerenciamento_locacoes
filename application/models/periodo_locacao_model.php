@@ -18,8 +18,8 @@
      * @package     Models
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.0.0
-     * @since       03/02/2015
+     * @version     v1.1.0
+     * @since       18/02/2015
      */
     class Periodo_locacao_model extends MY_Model
     {
@@ -85,6 +85,43 @@
             }
 
             return parent::get();
+        }
+        //**********************************************************************
+        
+        /**
+         * update()
+         * 
+         * Realiza atualização de dados na tabela
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 18/02/2015
+         * @param       int     $id     Recebe o ID do registro a ser alterado
+         * @param       array   $dados  Recebe os dados a serem atualizar
+         */
+        function update($id, $dados)
+        {
+            $this->_data = $dados;
+            
+            $this->BD->where('id', $id);
+            
+            return parent::update();
+        }
+        //**********************************************************************
+        
+        /**
+         * last_id()
+         * 
+         * Retorna o ID do último registro gravado
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v1.1.0 - 18/02/2015
+         * @return      int Retorna o ID do último registro gravado
+         */
+        function last_id()
+        {
+            return $this->BD->insert_id();
         }
         //**********************************************************************
     }

@@ -21,8 +21,8 @@
      * @subpackage  Cadastros
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v1.2.0
-     * @since       17/12/2014
+     * @version     v1.2.1
+     * @since       13/02/2015
      */
     class Barracas extends MY_Controller
     {
@@ -33,7 +33,7 @@
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
-         * @since       v1.1.0 - 05/12/2014
+         * @since       v1.2.1 - 13/02/2014
          */
         function __construct()
         {
@@ -44,7 +44,6 @@
             
             // Carrega o model necesário para os operações
             $this->load->model('opcoes/cadastros/barracas_model', 'm_barracas');
-            $this->load->model('opcoes/cadastros/valores_model', 'm_valores');
             
             // Carrega library para verificar as permissões de usuário
             $this->load->library('login_library');
@@ -99,38 +98,6 @@
             
                 //Carrega a view
                 $this->load->view('paginas/ajax/buscas/opcoes/cadastros/barracas', $this->dados);
-            }
-        }
-        //**********************************************************************
-        
-        /**
-         * preenche_combo()
-         * 
-         * Função desenvolvida para preencher o combo de valores para cadastro
-         * ou edição de barracas cadastradas
-         * 
-         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-         * @access      Public
-         * @since       v1.1.0 - 05/12/2014
-         * @return      String Retorna uma string que preenche o combobox de 
-         *              valores
-         */
-        function preenche_combo()
-        {
-            $valores = $this->m_valores->buscar();
-            
-            if(!$valores)
-            {
-                echo "<option>Não exitem valores cadastrados</option>";
-            }
-            else
-            {
-                echo "<option>Selecione uma opção...</option>";
-                
-                foreach ($valores as $row)
-                {
-                    echo "<option value='$row->id'>Valor da diária: R$$row->valor_diaria</option>";
-                }
             }
         }
         //**********************************************************************

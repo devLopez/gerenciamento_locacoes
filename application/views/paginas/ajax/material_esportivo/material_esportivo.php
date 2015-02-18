@@ -1,9 +1,14 @@
 <!-- Header da página -->
 <div class="row">
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h1 class="page-title txt-color-blueDark">
+        <h1 class="page-title txt-color-white">
             <i class="fa-fw fa fa-dribbble"></i> Material Esportivo
         </h1>
+    </div>
+    <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <a class="btn btn-default pull-right" href="#cad_emprestimo" data-toggle="modal">
+            <i class="fa fa-plus"></i> Registrar retirada
+        </a>
     </div>
 </div>
 <!-- Fim do Header da página -->
@@ -14,13 +19,13 @@
         <form class="form-inline" id="data-pesquisa" role="form">
             <div class="form-group">
                 <div class="input-group">
-                    <label for="exampleInputEmail2">Data Inicial</label>
+                    <label class="txt-color-white">Data Inicial</label>
                     <input type="text" class="form-control" id="data_inicial" required>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <label for="exampleInputEmail2">Data Final</label>
+                    <label class="txt-color-white">Data Final</label>
                     <input type="text" class="form-control" id="data_final" required>
                 </div>
             </div>
@@ -33,11 +38,6 @@
                 </div>
             </div>
         </form>
-    </div>
-    <div class="col col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <a class="btn btn-primary pull-right" href="#cad_emprestimo" data-toggle="modal">
-            <i class="fa fa-plus"></i> Registrar retirada
-        </a>
     </div>
 </div>
 <!-- Fim da pesquisa -->

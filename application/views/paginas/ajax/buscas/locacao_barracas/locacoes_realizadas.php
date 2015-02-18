@@ -10,7 +10,7 @@
         <?php
     } else {
         ?>
-        <div class="jarviswidget jarviswidget-color-darken">
+        <div class="jarviswidget">
             <header>
                 <span class="widget-icon"><i class="fa fa-calendar"></i></span>
                 <h2>Períodos Cadastrados</h2>

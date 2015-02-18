@@ -1,12 +1,12 @@
 <!-- Header da página -->
 <div class="row">
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h1 class="page-title txt-color-blueDark">
+        <h1 class="page-title txt-color-white">
             <i class="fa-fw fa fa-home"></i> Cadastro de Barracas
         </h1>
     </div>
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <a href="#new_barraca" class="btn btn-primary pull-right" data-toggle="modal">Nova Barraca</a>
+        <a href="#new_barraca" class="btn btn-default pull-right" data-toggle="modal">Nova Barraca</a>
     </div>
 </div>
 <!--*************************************************************************-->
@@ -37,7 +37,7 @@
                                     <strong>Nome da Barraca</strong>
                                 </label>
                                 <label class="input">
-                                    <input class="form-control" name="nome_barraca" maxlength="200" required>
+                                    <input class="form-control" name="nome_barraca" id="nome_barraca" maxlength="200" required>
                                 </label>
                             </section>
                         </div>
@@ -107,18 +107,21 @@
     </div>
 </div>
 <!--*************************************************************************-->
-<script type="text/javascript" src="./js/plugin/dataTables/jquery.dataTables.min.js"></script>
-<script src="./js/plugin/dataTables/dataTables.bootstrap.js"></script>
-<link rel="stylesheet" href="./js/plugin/dataTables/css/dataTables.bootstrap.css">
+<script type="text/javascript" src="./js/plugins_sgl/jquery.combo.js"></script>
 <script>
+    // Coloca o foco no primeiro campo ao abrir a janela modal
+    $('#new_valor').on('shown.bs.modal', function() {
+        $('#valor_diaria').focus();
+    });
+    $('#new_barraca').on('shown.bs.modal', function() {
+        $('#nome_barraca').focus();
+    });
+    
     // Função que busca o Script de máscara monetária
     loadScript('js/plugin/maskMoney/jquery.maskMoney.min.js', mascarar_valor);
     
     // Chama a função que busca as barracas cadastradas
     buscar();
-    
-    // Inicia o Datatable na tabela
-    $.fn.dataTable.ext.errMode = 'throw';
     
     // Função que busca os valores cadastrados
     buscar_combo();
@@ -126,35 +129,26 @@
     /**
      * Função para buscar as barracas cadastradas
      */
-    function buscar()
-    {
-        url = '<?php echo app_baseurl().'opcoes/cadastros/barracas/buscar_barracas'?>';
+    function buscar() {
+        url = 'opcoes/cadastros/barracas/buscar_barracas';
         
-        get_data(url, $('#show_barracas'));
+        loadURL(url, $('#show_barracas'));
     }
     
     /**
      * buscar_combo()
      * 
      * Função desenvolvida para buscar os valores cadastrados
+     * 
+     * @var {string} option Recebe opções para ações adicionais na busca dos valores
      */
-    function buscar_combo(option)
-    {
-        url = '<?php echo app_baseurl().'opcoes/cadastros/barracas/preenche_combo'?>';
+    function buscar_combo(option) {
+        url = 'combo/valores';
         
         if(option == undefined) {
-            get_data(url, $('#id_valor'));
+            $('#id_valor').combo(url);
         } else if(option == 'editar') {
-            $.get(url, function(e) {
-                $('#ed_id_valor').html(e);
-            }).done(function(){
-                $('#ed_id_valor').find('option').each(function(){
-                    if($(this).val() == $('#ed_id_valor').data('id_valor'))
-                    {
-                        $(this).prop('selected', true);
-                    }
-                })
-            });
+            $('#id_valor').combo(url, {selecionar: $(this).data('id_valor')});
         }
     }
     
@@ -172,15 +166,12 @@
             data: barraca,
             dataType: 'html',
             success: function (e) {
-                if(e == 1)
-                {
+                if(e == 1) {
                     msg_sucesso('Barraca Cadastrada');
                     limpar_campos($('#cad_barraca'));
                     $('#new_barraca').modal('hide');
                     buscar();
-                }
-                else
-                {
+                } else {
                     msg_erro('Não foi possível salvar a barraca');
                 }
             }
@@ -196,20 +187,17 @@
         valor = $(this).serialize();
         
         $.ajax({
-            url: '<?php echo app_baseurl().'opcoes/cadastros/valores/salvar'?>',
+            url: 'opcoes/cadastros/valores/salvar',
             type: 'POST',
             data: valor,
             dataType: 'html',
             success: function (e) {
-                if(e == 1)
-                {
+                if(e == 1) {
                     msg_sucesso('Novo valor cadastrado');
                     limpar_campos($('#cad_valor'));
                     $('#new_valor').modal('hide');
                     buscar_combo();
-                }
-                else
-                {
+                } else {
                     msg_erro('Não foi possível salvar o valor');
                 }
             }
@@ -221,8 +209,7 @@
      * 
      * Função desenvolvida para adicionar a mascara no campo de novo valor
      */
-    function mascarar_valor()
-    {
+    function mascarar_valor() {
         $("#valor_diaria").maskMoney({
             showSymbol: true,
             allowZero: true,

@@ -1,12 +1,12 @@
 <!-- Header da página -->
 <div class="row">
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h1 class="page-title txt-color-blueDark">
+        <h1 class="page-title txt-color-white">
             <i class="fa-fw fa fa-code-fork"></i> Locações Externas
         </h1>
     </div>
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <a data-toggle="modal" href="#cad_aluguel" class="btn btn-primary pull-right">
+        <a data-toggle="modal" href="#cad_aluguel" class="btn btn-default pull-right">
             <i class="fa fa-plus"></i> Adicionar locação de espaço
         </a>
     </div>

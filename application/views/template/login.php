@@ -9,22 +9,13 @@
         <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css"  media="all">
         <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css" media="all">
         <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css" media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="css/pentaurea.css" media="all">
         <link rel="shortcut icon" href="./img/favicon/icon.png" type="image/png">
         <link rel="icon" href="./img/favicon/icon.png" type="image/png">
         <script src="./js/libs/jquery.js"></script>
     </head>
 
     <body id="login" class="animated fadeInDown">
-        <!-- Header da página -->
-        <header id="header">
-            <div id="logo-group">
-                <span id="logo">
-                    <img src="./img/reservado/logo.png" alt="Clube Campestre Pentáurea">
-                </span>
-            </div>
-        </header>
-        <!--*****************************************************************-->
-
         <!-- Conteúdo -->
         <div id="" role="main">
             <div id="content" class="container">

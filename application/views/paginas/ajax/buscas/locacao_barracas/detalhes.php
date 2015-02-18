@@ -1,8 +1,15 @@
 <div class="row">
     <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <h1 class="page-title txt-color-blueDark">
+        <h1 class="page-title txt-color-white">
             <i class="fa-fw fa fa-calendar"></i> Detalhes do Período de Aluguel
         </h1>
+    </div>
+    <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="pull-right">
+            <a href="#locacao_barracas" class="btn btn-default">
+                Voltar
+            </a>
+        </div>
     </div>
 </div>
 
@@ -25,7 +32,7 @@
                     $diretor    = $row->diretor_semana;
                 }
                 ?>
-                <div class="jarviswidget jarviswidget-color-darken">
+                <div class="jarviswidget">
                     <header>
                         <span class="widget-icon"><i class="fam-date"></i></span>
                         <h2>Período de locações</h2>
@@ -63,16 +70,14 @@
     </div>
     
     <div class="col col-lg-8 col-md-8 col-sm-12 col-xs-12">
-    	<div class="jarviswidget jarviswidget-color-darken">
-    		<header>
-    			<span class="widget-icon"><i class="fam-house"></i></span>
+    	<div class="jarviswidget">
+            <header>
+                <span class="widget-icon"><i class="fam-house"></i></span>
                 <h2>Barracas Disponíveis</h2>
-    		</header>
-    		<div>
-    			<div class="widget-body no-padding">
-    			
-    			</div>
-    		</div>
+            </header>
+            <div>
+                <div class="widget-body no-padding"></div>
+            </div>
     	</div>
     </div>
 </div>
@@ -84,6 +89,13 @@
     
     // Instancia o plugin do xeditable para edição de diretor da semana
     function editar_diretor() {
-        $('#diretor_semana').editable();
+        $('#diretor_semana').editable({
+            url: 'locacao_barracas/editar_diretor',
+            validate: function (value) {
+                if ($.trim(value) == '') {
+                    return 'Valor Inválido';
+                }
+            }
+        });
     }
 </script>

@@ -13,7 +13,7 @@
     else
     {
         ?>
-        <div class="jarviswidget jarviswidget-color-darken">
+        <div class="jarviswidget">
             <header role="heading">
                 <span class="widget-icon"><i class="fa fa-users"></i> </span>
                 <h2>Locações Cadastradas</h2>
