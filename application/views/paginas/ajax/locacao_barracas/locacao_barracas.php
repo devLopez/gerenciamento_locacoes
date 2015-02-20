@@ -156,6 +156,7 @@
                     msg_sucesso('Período de locação cadastrado com sucesso');
                     limpar_campos($('#salvar_periodo_emprestimo'));
                     $('#cad_periodo_locacao').modal('hide');
+                    buscar_periodos();
                 } else {
                     msg_erro('Não foi possível salvar o período');
                     return false;

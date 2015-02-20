@@ -5,11 +5,15 @@
         <title><?php echo $titulo?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" media="all">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css"  media="all">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css" media="all">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css" media="all">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/pentaurea.css" media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/bootstrap.min.css" media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/font-awesome.min.css"  media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/smartadmin-production.min.css" media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/smartadmin-skins.min.css" media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/pentaurea.css" media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/pentaurea.css" media="all">
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>js/plugin/osx/css/osx.css" media="all">
+        
         <link rel="shortcut icon" href="./img/favicon/icon.png" type="image/png">
         <link rel="icon" href="./img/favicon/icon.png" type="image/png">
         <script src="./js/libs/jquery.js"></script>
@@ -32,21 +36,22 @@
         <!--================================================== -->
 
         <!-- jQuery e jQuery UI -->
-        <script src="./js/libs/jquery-ui-1.10.3.min.js"></script>
+        <script src="<?php echo base_url()?>js/libs/jquery-ui-1.10.3.min.js"></script>
         
         <!-- Twitter Bootstrap JS -->
-        <script src="js/bootstrap/bootstrap.min.js"></script>
+        <script src="<?php echo base_url()?>js/bootstrap/bootstrap.min.js"></script>
         
         <!-- Notificações -->
-        <script src="./js/notification/SmartNotification.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url()?>js/notification/SmartNotification.min.js" type="text/javascript"></script>
 
         <!-- JQUERY MASKED INPUT -->
-        <script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+        <script src="<?php echo base_url()?>js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
         <!-- MAIN APP JS FILE -->
-        <script src="js/app.config.js"></script>
-        <script src="js/app.min.js"></script>
+        <script src="<?php echo base_url()?>js/app.min.js"></script>
         
-        <script src="./js/pentaurea.js"></script>
+        <script src="<?php echo base_url()?>js/plugin/osx/js/osx.js"></script>
+        
+        <script src="<?php echo base_url()?>js/pentaurea.js"></script>
     </body>
 </html>

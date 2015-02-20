@@ -27,7 +27,7 @@
         /**
          * __construct()
          * 
-         * Realiza a construção do sistema
+         * Realiza a construção da classe
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
@@ -38,17 +38,20 @@
             parent::__construct(TRUE);
             
             // Carrega o model necessário
+            $this->load->model('alugueis_barracas_model', 'alugueis');
+            $this->load->model('desistencias_model', 'desistencias');
             $this->load->model('periodo_locacao_model', 'locacao');
+            $this->load->model('opcoes/cadastros/barracas_model', 'barracas');
             
             // Define as permissões de acesso
             $this->_permissao = array('administradores', 'atendimento');
             
             // Carrega a library para verificar as permissões do usuário
+            $this->load->library('barracas_disponiveis');
             $this->load->library('login_library');
             
             // Verifica se o usuário possui a permissão
-            if(!$this->login_library->verifica_permissao($this->_permissao))
-            {
+            if(!$this->login_library->verifica_permissao($this->_permissao)) {
                 $this->dados['erro'] = "Você não possui permissão para acessar este módulo";
                 $this->load->view('paginas/erros/erro_permissao', $this->dados);
             }
@@ -82,11 +85,6 @@
          */
         function salvar_periodo()
         {
-            $this->load->library('locacao_library');
-            
-            $this->locacao_library->teste();
-            exit();
-            
             $periodo = array(
                 'periodo_locacao'   => $this->input->post('periodo_locacao', TRUE),
                 'diretor_semana'    => $this->input->post('diretor_semana', TRUE),
@@ -96,8 +94,8 @@
             
             $resposta = $this->locacao->salvar_periodo($periodo);
             
-            if($resposta == TRUE) {                
-                $resposta = $this->locacao_barracas->montar_periodo();
+            if($resposta != FALSE) {
+                $resposta = $this->barracas_disponiveis->montar_periodo($resposta);
             }
             
             echo json_encode($resposta);
@@ -138,7 +136,9 @@
          */
         function detalhes($id)
         {
-            $this->dados['locacoes'] = $this->locacao->get(NULL, NULL, $id);
+            $this->dados['locacoes']        = $this->locacao->get(NULL, NULL, $id);
+            $this->dados['alugueis']        = $this->alugueis->get($id);
+            $this->dados['desistencias']    = $this->desistencias->get($id);
 
             $this->load->view('paginas/ajax/buscas/locacao_barracas/detalhes', $this->dados);
         }
@@ -164,6 +164,68 @@
             echo $this->locacao->update($id_periodo, $diretor);
         }
         //**********************************************************************
+        
+        /**
+         * editar_alugueis()
+         * 
+         * Função desenvolvida para edição dos dados do aluguel de um determinado
+         * período
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v0.2.1.0 - 03/02/2015
+         */
+        function editar_alugueis()
+        {
+            $id_aluguel = $this->input->post('pk', TRUE);
+            
+            $aluguel = array(
+                $this->input->post('name', TRUE)    => $this->input->post('value', TRUE)
+            );
+            
+            echo $this->alugueis->update($id_aluguel, $aluguel); 
+        }
+        //**********************************************************************
+        
+        /**
+         * cancelar_locacao()
+         * 
+         * Função desenvolvida para cancelar a locação de uma barraca
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v0.2.1.0 - 03/02/2015
+         * @return      bool Retorna TRUE se atualizar e FALSE se não atualizar
+         */
+        function cancelar_locacao()
+        {
+            $id_aluguel = $this->input->post('id', TRUE);
+            $id_periodo = $this->input->post('id_periodo_locacao');
+            
+            $cancelar = array(
+                'id_periodo_locacao'    => $id_periodo,
+                'id_usuario_logado'     => base64_decode($this->session->userdata('user_identifier')),
+                'nome_socio'            => $this->input->post('nome_socio', TRUE),
+                'cpf_associado'         => $this->input->post('cpf_associado', TRUE),
+                'valor_credito'         => $this->input->post('valor_credito', TRUE),
+                'observacoes'           => $this->input->post('observacoes', TRUE)
+            );
+            
+            if($this->desistencias->salvar($cancelar)) {
+                $aluguel = array(
+                    'nome_associado'        => "",
+                    'cpf_associado'         => "",
+                    'telefone_associado'    => "",
+                    'periodo_estadia'       => ""
+                );
+                
+                $retorno = $this->alugueis->update($id_aluguel, $aluguel);
+            } else {
+                $retorno = FALSE;
+            }
+            
+            echo json_encode($retorno);
+        }
     }
     /** End of File locacao_barracas.php **/
     /** Location ./application/controllers/locacao_barracas.php **/

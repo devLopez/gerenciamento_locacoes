@@ -56,6 +56,9 @@
         {
             $this->_data = $periodo;
             
+            if(parent::salvar() == TRUE) {
+                return $this->last_id();
+            }
             return parent::salvar();
         }
         //**********************************************************************
@@ -115,11 +118,11 @@
          * Retorna o ID do último registro gravado
          * 
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-         * @access      Public
+         * @access      Private
          * @since       v1.1.0 - 18/02/2015
          * @return      int Retorna o ID do último registro gravado
          */
-        function last_id()
+        private function last_id()
         {
             return $this->BD->insert_id();
         }

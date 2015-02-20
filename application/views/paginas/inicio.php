@@ -38,13 +38,13 @@
                     <span>Início</span>
                 </a>
             </li>
-            <li>
+            <li id="link-locacao-externa">
                 <a href="locacao_externa">
                     <i class="fa fa-lg fa-fw fa-code-fork"></i> 
                     <span>Locações Externas</span>
                 </a>
             </li>
-            <li>
+            <li id="link-locacao-barracas">
                 <a href="locacao_barracas">
                     <i class="fa fa-lg fa-fw fa-home"></i> 
                     <span>Locação de Barracas</span>

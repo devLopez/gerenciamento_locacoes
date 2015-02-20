@@ -8,21 +8,23 @@
 
         <!-- #CSS Links -->
         <!-- Basic Styles -->
-        <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/font-awesome.min.css">
 
         <!-- SmartAdmin Styles -->
-        <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/smartadmin-production.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/smartadmin-skins.min.css">
         
         <!-- Estilo personalizado do Pentáurea -->
-        <link rel="stylesheet" type="text/css" media="screen" href="./css/pentaurea.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/pentaurea.css">
 
         <!-- Icones -->
-        <link rel="stylesheet" type="text/css" media="screen" href="./css/icones.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/icones.css">
         
         <!-- xEditable -->
-        <link rel="stylesheet" type="text/css" media="screen" href="./js/plugin/xeditable/css/bootstrap-editable.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>js/plugin/xeditable/css/bootstrap-editable.css">
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>js/plugin/osx/css/osx.css" media="all">
 
         <!-- #FAVICONS -->
         <link rel="shortcut icon" href="./img/favicon/icon.png" type="image/png">
@@ -51,53 +53,44 @@
 
         <!-- #PLUGINS -->
         <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-        <script src="js/libs/jquery.js"></script>
-        <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
-
-
-        <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-        <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> 
+        <script src="<?php echo base_url()?>js/libs/jquery.js"></script>
+        <script src="<?php echo base_url()?>js/libs/jquery-ui-1.10.3.min.js"></script> 
 
         <!-- BOOTSTRAP JS -->
-        <script src="js/bootstrap/bootstrap.min.js"></script>
+        <script src="<?php echo base_url()?>js/bootstrap/bootstrap.min.js"></script>
 
         <!-- CUSTOM NOTIFICATION -->
-        <script src="js/notification/SmartNotification.min.js"></script>
+        <script src="<?php echo base_url()?>js/notification/SmartNotification.min.js"></script>
 
         <!-- JARVIS WIDGETS -->
-        <script src="js/smartwidgets/jarvis.widget.min.js"></script>
+        <script src="<?php echo base_url()?>js/smartwidgets/jarvis.widget.min.js"></script>
 
         <!-- JQUERY VALIDATE -->
-        <script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+        <script src="<?php echo base_url()?>js/plugin/jquery-validate/jquery.validate.min.js"></script>
 
         <!-- JQUERY MASKED INPUT -->
-        <script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+        <script src="<?php echo base_url()?>js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
         <!-- JQUERY SELECT2 INPUT -->
-        <script src="js/plugin/select2/select2.min.js"></script>
+        <script src="<?php echo base_url()?>js/plugin/select2/select2.min.js"></script>
 
         <!-- browser msie issue fix -->
-        <script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
-
-        <!-- FastClick: For mobile devices: you can disable this in app.js -->
-        <script src="js/plugin/fastclick/fastclick.min.js"></script>
-
-        <!--[if IE 8]>
-                <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
-        <![endif]-->
+        <script src="<?php echo base_url()?>js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
 
         <!-- MAIN APP JS FILE -->
-        <script src="js/app.min.js"></script>
+        <script src="<?php echo base_url()?>js/app.min.js"></script>
 
         
         <!-- BlockUI -->
-        <script src="./js/blockUi/blockUI.js"></script>
+        <script src="<?php echo base_url()?>js/blockUi/blockUI.js"></script>
         
         <!-- HTML5 Utils, utilizado na detecção da conectividade -->
-        <script src="./js/h5utils/h5utils.js"></script>
+        <script src="<?php echo base_url()?>js/h5utils/h5utils.js"></script>
         
         <!-- Configurações do Ajax -->
-        <script src="./js/ajaxSetup.js"></script>
+        <script src="<?php echo base_url()?>js/ajaxSetup.js"></script>
+        
+        <script src="<?php echo base_url()?>js/plugin/osx/js/osx.js"></script>
         
         <script type="text/javascript">
             // Carrega o script personalizado Pentáurea
@@ -111,6 +104,7 @@
             });
             
             $('body').popover({
+            	container: 'body',
                 selector: '[rel="popover"]',
                 placement: 'top',
                 trigger: 'hover'
@@ -127,12 +121,10 @@
              */
             function verifica_conectividade()
             {
-                if(navigator.onLine)
-                {
+                if(navigator.onLine) {
                     msg_sucesso('Online');
                 }
-                else
-                {
+                else {
                     msg_erro('Offline');
                 }
             }

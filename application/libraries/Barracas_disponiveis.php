@@ -22,8 +22,15 @@
      * @version     v1.0.0
      * @since       18/02/2015
      */
-    class Locacao_barracas_library extends CI_Controller
+    class Barracas_disponiveis //extends CI_Controller
     {
+        /**
+         * Variável que recebe o super objeto do CodeIgniter
+         * 
+         * @var mixed
+         */
+        protected $CI;
+        
         /**
          * __construct()
          * 
@@ -35,30 +42,14 @@
          */
         public function __construct()
         {
-            parent::__construct();
+            $this->CI =& get_instance();
             
             // Carrega os models necessários
-            $this->load->model('alugueis_barracas_model', 'alugueis');
-            //$this->load->model('opcoes/cadastros/barracas_model', 'barracas');
-            //$this->load->model('periodo_locacao_model', 'periodo');
+            $this->CI->load->model('alugueis_barracas_model', 'alugueis');
+            $this->CI->load->model('opcoes/cadastros/barracas_model', 'barracas');
+            $this->CI->load->model('periodo_locacao_model', 'periodo');
         }
-        //**********************************************************************
-        
-        /**
-         * get_id()
-         * 
-         * Retorna o último ID da inserção de novo período de locações
-         * 
-         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
-         * @access      Private
-         * @since       v1.0.0 - 18/02/2015
-         * @return      int Retorna o ID do registro inserido
-         */
-        private function get_id()
-        {
-            return $this->periodo->last_id();
-        }
-        //**********************************************************************
+        //**********************************************************************/
         
         /**
          * barracas()
@@ -72,7 +63,7 @@
          */
         private function barracas()
         {
-            return $this->barracas->buscar();
+            return $this->CI->barracas->buscar();
         }
         //**********************************************************************
         
@@ -85,12 +76,12 @@
          * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
          * @access      Public
          * @since       v1.0.0 - 18/02/2015
+         * @param       int $id_periodo Recebe o ID do período a ser gravado
          * @return      bool Retorna TRUE se inserir e FALSE se não salvar
          */
-        function montar_periodo()
+        function montar_periodo($id_periodo)
         {
             $barracas   = $this->barracas();
-            $id_periodo = $this->get_id();
             
             $i = 0;
             foreach ($barracas as $row) {
@@ -101,14 +92,10 @@
                 
                 $i++;
             }
-            
-            return $this->alugel->insert($aluguel);
+
+            return $this->CI->alugueis->insert($aluguel);
         }
         //**********************************************************************
-        
-        function teste() {
-            echo 'Bosta';
-        }
     }
     /** End of File locacao_barracas_library.php **/
     /** Location ./application/libraries/locacao_barracas_library.php **/
