@@ -325,11 +325,17 @@
          * @param       int $id_evento Recebe o ID do evento a ser buscado
          */
         function impressao_lista($id_evento)
-        {
+        {            
+            // Realiza a busca dos dados
             $this->dados['evento']      = $this->m_locacao_externa->buscar(1, 0, $id_evento);
             $this->dados['convidados']  = $this->convidados->get($id_evento);
             
-            $this->load->view('paginas/ajax/buscas/locacao/impressao_lista', $this->dados);
+            // Carrega a view e o título do relatório
+            $dados['view']   = $this->load->view('paginas/ajax/buscas/locacao/impressao_lista', $this->dados, TRUE);
+            $dados['titulo'] = 'Relatório de Locação de Espaço';
+            
+            // Carrega a Library para geração de PDF
+            $this->load->library('relatorios', $dados);
         }
         //**********************************************************************
     }

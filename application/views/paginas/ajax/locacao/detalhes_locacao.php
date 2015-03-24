@@ -21,32 +21,29 @@
 </div>
 <!-- Fim do Header da página -->
 
+<?php if (!$locacao) { ?>
+    <div class="alert alert-block alert-warning">
+        <h4 class="alert-heading"><b>:(</b></h4>
+        <p>
+            Ocorreu um erro na busca dos dados. Volte e tente novamente
+        </p>
+    </div>
+    <script>$('#add, #imprimir').prop('disabled', true).addClass('disabled');</script>
 <?php
-    if (!$locacao) {
-        ?>
-        <div class="alert alert-block alert-warning">
-            <h4 class="alert-heading"><b>:(</b></h4>
-            <p>
-                Ocorreu um erro na busca dos dados. Volte e tente novamente
-            </p>
-        </div>
-        <script>$('#add, #imprimir').prop('disabled', true).addClass('disabled');</script>
-        <?php
     } else {
-        foreach ($locacao as $row)
-        {
+        foreach ($locacao as $row) {
             $dados = array(
                 'id' => $row->id,
-                'instituicao' => $row->instituicao,
-                'responsavel' => $row->responsavel,
-                'cpf_cnpj' => $row->cpf_cnpj,
-                'telefone' => $row->telefone,
-                'email' => $row->email,
-                'data' => $row->data,
+                'instituicao'       => $row->instituicao,
+                'responsavel'       => $row->responsavel,
+                'cpf_cnpj'          => $row->cpf_cnpj,
+                'telefone'          => $row->telefone,
+                'email'             => $row->email,
+                'data'              => $row->data,
                 'espaco_necessario' => $row->espaco_necessario
             );
         }
-        ?>
+    ?>
         <div class="row">
             <!-- Barra lateral onde será exibida os detalhes da locação-->
             <section class="col col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -133,6 +130,12 @@
         </div>
         <!--*****************************************************************-->
         <script type="text/javascript">
+            // Adiciona a classe active ao link correspondente
+            $('#link-locacao-externa').addClass('active');
+
+            // Desenha o breadcrumb
+            drawBreadCrumb(["Detalhes da locação"]);
+            
             //Chama a função que realiza a busca dos dados
             buscar();
 
@@ -235,4 +238,3 @@
         <?php
     }
 ?>
-

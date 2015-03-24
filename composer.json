@@ -1,0 +1,14 @@
+{
+  "name" : "Gerenciamento de Locações",
+  "version" : "v0.1.1.0",
+  "require" : {
+    "mpdf/mpdf" : "v6.0.0"
+  },
+  "repositories" : [ {
+    "type" : "composer",
+    "url" : "https://packagist.org/"
+  } ],
+  "config" : {
+    "vendor-dir" : "application/third_party"
+  }
+}

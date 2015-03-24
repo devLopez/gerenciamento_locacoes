@@ -25,7 +25,7 @@
                     <select name="ano_busca" id="ano_busca" class="form-control"></select>
                 </label>
             </div>
-            <button type="submit" class="btn btn-default" style="margin-top: -5px;" data-loading-text="Buscando..." id="buscar">
+            <button type="submit" class="btn btn-default" style="margin-top: -5px;">
                 <i class="fa fa-search"></i> Buscar
             </button>
         </form>
@@ -50,6 +50,8 @@
             </div>
             <div class="modal-body no-padding">
                 <form id="salvar_periodo_emprestimo" class="smart-form">
+                    <input type="hidden" name="mes_locacao" value="<?php echo nome_mes();?>">
+                    <input type="hidden" name="ano_locacao" value="<?php echo date('Y');?>">
                     <fieldset>
                         <div class="row">
                             <section class="col col-6">
@@ -90,11 +92,15 @@
 <!--*************************************************************************-->
 
 <script type="text/javascript">
+    //Recebe o ano e o mês atual
+    var mes_atual  = '<?php echo nome_mes()?>';
+    var ano_atual  = '<?php echo date('Y')?>';
+    
     // Funções do SmartAdmin
     runAllForms();
 
     // Realiza a busca dos períodos cadastrados
-    buscar_periodos();
+    buscar_periodos(mes_atual, ano_atual);
     
     // carrega o plugin para busca de combobox
     loadScript('./js/plugins_sgl/jquery.combo.js', function() {
@@ -103,10 +109,6 @@
 
     // Realiza a busca dos anos
     function buscar_ano() {
-        // Recebe o ano e o mês atual
-        mes_atual  = '<?php echo nome_mes()?>';
-        ano_atual  = '<?php echo date('Y')?>';
-        
         $('#mes_busca').combo('combo/meses', {selecionar: mes_atual});
         $('#ano_busca').combo('combo/anos', {selecionar: ano_atual});
     }
@@ -156,7 +158,7 @@
                     msg_sucesso('Período de locação cadastrado com sucesso');
                     limpar_campos($('#salvar_periodo_emprestimo'));
                     $('#cad_periodo_locacao').modal('hide');
-                    buscar_periodos();
+                    buscar_periodos(mes_atual, ano_atual);
                 } else {
                     msg_erro('Não foi possível salvar o período');
                     return false;
@@ -166,9 +168,11 @@
     }
 
     // Realiza a busca por períodos 
-    function buscar_periodos() {
-        mes = $('#mes_busca').val();
-        ano = $('#ano_busca').val();
+    function buscar_periodos(mes, ano) {
+        if(!mes || !ano) {
+            mes = $('#mes_busca').val();
+            ano = $('#ano_busca').val();
+        }
 
         url = (mes || ano) ? 'locacao_barracas/buscar_periodos_cadastrados/'+mes+'/'+ano : 'locacao_barracas/buscar_periodos_cadastrados';  
         
@@ -182,8 +186,6 @@
     // Realiza o recolhimento dos dados do formulário de busca e chama a função
     // de busca
     $('#data-pesquisa').submit(function(e) {
-        $('#buscar').button('loading');
-        
         e.preventDefault();
         
         buscar_periodos();

@@ -88,8 +88,8 @@
             $periodo = array(
                 'periodo_locacao'   => $this->input->post('periodo_locacao', TRUE),
                 'diretor_semana'    => $this->input->post('diretor_semana', TRUE),
-                'mes_locacao'       => nome_mes(),
-                'ano_locacao'       => date('Y')
+                'mes_locacao'       => $this->input->post('mes_locacao', TRUE),
+                'ano_locacao'       => $this->input->post('ano_locacao', TRUE)
             );
             
             $resposta = $this->locacao->salvar_periodo($periodo);
@@ -113,12 +113,12 @@
          */
         function buscar_periodos_cadastrados($mes = NULL, $ano = NULL)
         {
-            if (!$mes) {
+            if ($mes == NULL) {
                 $mes = nome_mes();
             } elseif ($ano == NULL) {
                 $ano = date('Y');
             }
-            
+			
             $this->dados['locacoes'] = $this->locacao->get($mes, $ano);
             $this->load->view('paginas/ajax/buscas/locacao_barracas/locacoes_realizadas', $this->dados);
         }

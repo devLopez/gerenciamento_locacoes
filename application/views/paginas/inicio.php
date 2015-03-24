@@ -32,7 +32,7 @@
 <aside id="left-panel">
     <nav>
         <ul>
-            <li>
+            <li id="link-home">
                 <a href="inicio/home">
                     <i class="fa fa-lg fa-fw fa-home"></i>
                     <span>Início</span>
