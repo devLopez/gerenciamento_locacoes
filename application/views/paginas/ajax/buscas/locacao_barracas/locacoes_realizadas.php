@@ -1,56 +1,44 @@
-<?php
-    if(!$locacoes) {
-        ?>
-        <div class="alert alert-block alert-warning">
-            <h4><b>:(</b></h4>
-            <p>
-                Não foram encontrados registros para este mês
-            </p>
-        </div>
-        <?php
-    } else {
-        ?>
-        <div class="jarviswidget">
-            <header>
-                <span class="widget-icon"><i class="fa fa-calendar"></i></span>
-                <h2>Períodos Cadastrados</h2>
-            </header>
-            <div>
-                <div class="widget-body no-padding">
-                    <table class="table table-striped table-hover table-responsive table-bordered table-condensed" id="table-periodos-cadastrados">
-                        <thead>
+<?php if(!$locacoes) { ?>
+    <div class="alert alert-block alert-warning">
+        <h4><b>:(</b></h4>
+        <p>Não foram encontrados registros para este mês</p>
+    </div>
+<?php } else { ?>
+    <div class="jarviswidget">
+        <header>
+            <span class="widget-icon"><i class="fa fa-calendar"></i></span>
+            <h2>Períodos Cadastrados</h2>
+        </header>
+        <div>
+            <div class="widget-body no-padding">
+                <table class="table table-striped table-hover table-responsive table-bordered table-condensed" id="table-periodos-cadastrados">
+                    <thead>
                         <tr>
                             <th>Mês de Referência</th>
                             <th>Período</th>
                             <th>Diretor da Semana</th>
                             <th>Ações</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                foreach($locacoes as $row) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $row->mes_locacao?></td>
-                                        <td><?php echo $row->periodo_locacao.' - '.$row->mes_locacao.' / '.$row->ano_locacao?></td>
-                                        <td><?php echo $row->diretor_semana?></td>
-                                        <td align="center">
-                                            <a href="#locacao_barracas/detalhes/<?php echo $row->id?>" rel="tooltip" title="Detalhes">
-                                                <i class="fam-world-go"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                    </thead>
+                    <tbody>
+                        <?php foreach($locacoes as $row) { ?>
+                            <tr>
+                                <td><?php echo nome_mes($row->mes_locacao)?></td>
+                                <td><?php echo $row->periodo_locacao.' - '.nome_mes($row->mes_locacao).' / '.$row->ano_locacao?></td>
+                                <td><?php echo $row->diretor_semana?></td>
+                                <td align="center">
+                                    <a href="#locacao_barracas/detalhes/<?php echo $row->id?>" rel="tooltip" title="Detalhes">
+                                        <i class="fam-world-go"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <?php
-    }
-?>
+    </div>
+<?php }?>
 
 <script>
     // Definições para inicialização do dataTables

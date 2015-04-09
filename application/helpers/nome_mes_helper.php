@@ -25,26 +25,26 @@
         function nome_mes($mes = NULL)
         {
             if(!$mes) {
-                $mes = date('m');
+                $mes = date('n');
             }
             
-            if ($mes == 01) {
+            if ($mes == 1) {
                 return 'Janeiro';
-            } elseif ($mes == 02) {
+            } elseif ($mes == 2) {
                 return 'Fevereiro';
-            } elseif ($mes == 03) {
+            } elseif ($mes == 3) {
                 return 'Março';
-            } elseif ($mes == 04) {
+            } elseif ($mes == 4) {
                 return 'Abril';
-            } elseif ($mes == 05) {
+            } elseif ($mes == 5) {
                 return 'Maio';
-            } elseif ($mes == 06) {
+            } elseif ($mes == 6) {
                 return 'Junho';
-            } elseif ($mes == 07) {
+            } elseif ($mes == 7) {
                 return 'Julho';
-            } elseif ($mes == 08) {
+            } elseif ($mes == 8) {
                 return 'Agosto';
-            } elseif ($mes == 09) {
+            } elseif ($mes == 9) {
                 return 'Setembro';
             } elseif ($mes == 10) {
                 return 'Outubro';

@@ -50,7 +50,7 @@
             </div>
             <div class="modal-body no-padding">
                 <form id="salvar_periodo_emprestimo" class="smart-form">
-                    <input type="hidden" name="mes_locacao" value="<?php echo nome_mes();?>">
+                    <input type="hidden" name="mes_locacao" value="<?php echo date('n');?>">
                     <input type="hidden" name="ano_locacao" value="<?php echo date('Y');?>">
                     <fieldset>
                         <div class="row">
@@ -93,7 +93,7 @@
 
 <script type="text/javascript">
     //Recebe o ano e o mês atual
-    var mes_atual  = '<?php echo nome_mes()?>';
+    var mes_atual  = '<?php echo date('n')?>';
     var ano_atual  = '<?php echo date('Y')?>';
     
     // Funções do SmartAdmin

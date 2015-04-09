@@ -19,8 +19,8 @@
      * @package     Controllers
      * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
      * @access      Public
-     * @version     v0.2.1.0
-     * @since       03/02/2015
+     * @version     v0.2.2.0
+     * @since       27/03/2015
      */
     class Locacao_barracas extends MY_Controller
     {
@@ -114,7 +114,7 @@
         function buscar_periodos_cadastrados($mes = NULL, $ano = NULL)
         {
             if ($mes == NULL) {
-                $mes = nome_mes();
+                $mes = date('n');
             } elseif ($ano == NULL) {
                 $ano = date('Y');
             }
@@ -136,8 +136,8 @@
          */
         function detalhes($id)
         {
+            $this->dados['id'] = $id;
             $this->dados['locacoes']        = $this->locacao->get(NULL, NULL, $id);
-            $this->dados['alugueis']        = $this->alugueis->get($id);
             $this->dados['desistencias']    = $this->desistencias->get($id);
 
             $this->load->view('paginas/ajax/buscas/locacao_barracas/detalhes', $this->dados);
@@ -226,6 +226,26 @@
             
             echo json_encode($retorno);
         }
+        //**********************************************************************
+        
+        /**
+         * get_barracas_periodo()
+         * 
+         * Função desenvolvida para buscar as barracas cadastradas para um 
+         * período
+         * 
+         * @author      Matheus Lopes Santos <fale_com_lopez@hotmail.com>
+         * @access      Public
+         * @since       v0.2.2.0 - 27/03/2015
+         * @param       int $id_periodo Recebe o id do período a ser buscado
+         */
+        function get_barracas_periodo($id_periodo)
+        {
+            $this->dados['alugueis'] = $this->alugueis->get($id_periodo);
+            
+            $this->load->view('paginas/ajax/buscas/locacao_barracas/barracas_periodo', $this->dados);
+        }
+        //**********************************************************************
     }
     /** End of File locacao_barracas.php **/
     /** Location ./application/controllers/locacao_barracas.php **/

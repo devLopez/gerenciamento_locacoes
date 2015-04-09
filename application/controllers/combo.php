@@ -90,7 +90,7 @@
                 $nome_mes = nome_mes($i + 1);
                 
                 $mes[$i] = array(
-                    'value' => $nome_mes,
+                    'value' => $i + 1,
                     'text'  => $nome_mes
                 );
             }
